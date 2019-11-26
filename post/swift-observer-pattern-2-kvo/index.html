@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
+<title>[Swift] Observer Pattern 2 - KVO | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574754629941">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,18 +81,18 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] 檢查 Email 格式
+              [Swift] Observer Pattern 2 - KVO
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2017-04-13
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-                  # Objective-C
+                <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
+                  # Swift
                 </a>
               
                 <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
@@ -101,17 +101,60 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://sabrinajiang14.github.io//post-images/ios-jian-cha-email-ge-shi.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
-<p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-objective-c">- (BOOL)validateEmailWithString:(NSString*)email
-{
-    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
-    return [emailTest evaluateWithObject:email];
+                <p>重點</p>
+<ol>
+<li>只支援 NSObject 的子物件</li>
+<li>要加入關鍵字 dynamic</li>
+</ol>
+<pre><code class="language-swift">class album: NSObject {
+    dynamic var id:String?
+    dynamic var name:String?
+    dynamic var url:String?
+}
+</code></pre>
+<pre><code class="language-swift">class ViewController: UIViewController {
+
+    let ab:album = album()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        ab.id = &quot;0&quot;
+        ab.name = &quot;album1&quot;
+        ab.url = &quot;http://www.apple.com.tw&quot;
+        
+        ab.addObserver(self, forKeyPath: &quot;url&quot;, options: [.old,.new], context: nil)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        ab.removeObserver(self, forKeyPath: &quot;url&quot;)
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    func Button_Click(_ sender: Any) {
+        ab.url = &quot;http://www.google.com.tw&quot;
+    }
+
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == &quot;url&quot;{
+            var newStr:String = &quot;&quot;, oldStr:String = &quot;&quot;
+            
+            if let dict = change?[.newKey] {
+                newStr = dict as! String
+            }
+            if let dict = change?[.oldKey]{
+                oldStr = dict as! String
+            }
+            print(&quot;old value = \(oldStr) -&gt; new value = \(newStr)&quot;)
+        }
+    }
 }
 </code></pre>
 
@@ -126,9 +169,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+            <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-nsnotificationcenter">
               <h3 class="post-title">
-                [OC] NSString to NSDate
+                [Swift] Observer Pattern 1 - NSNotificationCenter
               </h3>
             </a>
           </div>

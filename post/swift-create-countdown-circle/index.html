@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
+<title>[Swift] Create countdown circle | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574754629941">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,18 +81,18 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] 檢查 Email 格式
+              [Swift] Create countdown circle
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2017-05-17
               </span>
               <span>
-                1 min read
+                2 min read
               </span>
               
-                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-                  # Objective-C
+                <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
+                  # Swift
                 </a>
               
                 <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
@@ -101,18 +101,94 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://sabrinajiang14.github.io//post-images/ios-jian-cha-email-ge-shi.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
-<p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-objective-c">- (BOOL)validateEmailWithString:(NSString*)email
-{
-    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
-    return [emailTest evaluateWithObject:email];
+                <pre><code class="language-swift">//
+//  CircleView.h
+//
+//  Created by Sabrina on 2017/5/12.
+//  Copyright © 2017年 Sabrina All rights reserved.
+//
+
+#import &lt;UIKit/UIKit.h&gt;
+
+@interface CircleView : UIView
+
+@property (nonatomic) CGFloat precent;
+
+- (id)initWithFrame:(CGRect)frame arcWidth:(double)width;
+
+@end
+</code></pre>
+<pre><code class="language-swift">//
+//  CircleView.m
+//
+//  Created by Sabrina on 2017/5/12.
+//  Copyright © 2017年 Sabrina All rights reserved.
+//
+
+#import &quot;CircleView.h&quot;
+
+@implementation CircleView{
+	CGFloat startAngle;
+	CGFloat endAngle;
+	CGFloat circlewWidth, lineWith;
 }
+
+
+- (id)initWithFrame:(CGRect)frame arcWidth:(double)width
+{
+	
+	self = [super initWithFrame:frame];
+	
+	if (self) {
+		// Initialization code
+
+		self.backgroundColor = [UIColor clearColor];
+		
+		// Determine our start and stop angles for the arc (in radians)
+		startAngle = M_PI * 1.5;
+		endAngle = startAngle + (M_PI * 2);
+		circlewWidth = self.frame.size.width - 20;
+		lineWith = self.frame.size.width / 2;
+		
+	}
+	
+	return self;
+	
+}
+
+- (void)drawRect:(CGRect)rect {
+	
+	UIBezierPath *circle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10, 10, circlewWidth, circlewWidth)];
+	[[UIColor blueColor] setStroke];
+	circle.lineWidth = 0;
+	[circle stroke];
+	[[UIColor whiteColor] setFill];
+	[circle fill];
+	
+	UIBezierPath *arcLine = [UIBezierPath bezierPathWithArcCenter:CGPointMake(lineWith, lineWith) radius:circlewWidth / 2 startAngle:startAngle endAngle:(endAngle - startAngle) * (self.precent / 100.0) + startAngle clockwise:YES];
+	arcLine.lineWidth = 10;
+	[[UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0] setStroke];
+	[arcLine stroke];
+	
+	NSString* textContent = @&quot;&quot;;
+	
+	if (self.precent &gt; 100.0){
+		textContent = [NSString stringWithFormat:@&quot;%@%%&quot;, @&quot;100&quot;];
+	}else{
+		textContent = [NSString stringWithFormat:@&quot;%.1f%%&quot;, self.precent];
+	}
+	
+	// Text Drawing
+	CGRect textRect = CGRectMake((rect.size.width / 2.0)/2.0, (rect.size.height / 2.0) - 45/2.0, circlewWidth, 45);
+	[[UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0] setFill];
+	NSDictionary *attributes = @{ NSFontAttributeName: [UIFont fontWithName: @&quot;Helvetica-Bold&quot; size: 30.0],
+								  NSForegroundColorAttributeName : [UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0]};
+	[textContent drawInRect:textRect withAttributes:attributes];
+}
+
+@end
 </code></pre>
 
               </div>
@@ -126,9 +202,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+            <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-2-kvo">
               <h3 class="post-title">
-                [OC] NSString to NSDate
+                [Swift] Observer Pattern 2 - KVO
               </h3>
             </a>
           </div>
