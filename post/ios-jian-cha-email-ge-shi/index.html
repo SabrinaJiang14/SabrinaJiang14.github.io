@@ -1,8 +1,8 @@
 <html>
   <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>iOS | Sab.J 的碼農世界</title>
+<title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574748974464">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -78,73 +78,61 @@
   </div>
 </div>
 
-        <div class="current-tag-container">
-            <h2 class="title">
-                标签：# iOS
-            </h2> 
-        </div>
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/ios-jian-cha-email-ge-shi">
-        <h2 class="post-title">[OC] 檢查 Email 格式</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2015-03-17
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
-        <h2 class="post-title">[OC] NSString to NSDate</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2015-03-17
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-</div>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [OC] 檢查 Email 格式
+            </h2>
+            <div class="post-info">
+              <span>
+                2015-03-17
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
+                  # Objective-C
+                </a>
+              
+                <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
+                  # iOS
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
+<p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
+<pre><code class="language-Objective-C">- (BOOL)validateEmailWithString:(NSString*)email
+{
+    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
+    return [emailTest evaluateWithObject:email];
+}
+</code></pre>
 
-        <div class="pagination-container">
-  
-  
-</div>
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+              <h3 class="post-title">
+                [OC] NSString to NSDate
+              </h3>
+            </a>
+          </div>
+        
+
+        
 
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 

@@ -1,8 +1,8 @@
 <html>
   <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>iOS | Sab.J 的碼農世界</title>
+<title>[OC] NSString to NSDate | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574748974464">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -78,73 +78,59 @@
   </div>
 </div>
 
-        <div class="current-tag-container">
-            <h2 class="title">
-                标签：# iOS
-            </h2> 
-        </div>
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/ios-jian-cha-email-ge-shi">
-        <h2 class="post-title">[OC] 檢查 Email 格式</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2015-03-17
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
-        <h2 class="post-title">[OC] NSString to NSDate</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2015-03-17
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-</div>
+        <div class="post-detail">
+          <article class="post">
+            <h2 class="post-title">
+              [OC] NSString to NSDate
+            </h2>
+            <div class="post-info">
+              <span>
+                2015-03-17
+              </span>
+              <span>
+                1 min read
+              </span>
+              
+                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
+                  # Objective-C
+                </a>
+              
+                <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
+                  # iOS
+                </a>
+              
+            </div>
+            
+            <div class="post-content-wrapper">
+              <div class="post-content">
+                <p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
+寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
+<pre><code class="language-Objective-C">//NSString to NSDate
+- (void)stringToDate {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
+    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
+    NSLog(@”%@”, strDate);
+}
 
-        <div class="pagination-container">
-  
-  
-</div>
+//NSDate to NSString
+- (void)dateToString {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
+    NSDate *date = [dateFormatter dateFromString:@”2010–08–04 16:01:03&quot;];
+    NSLog(@”%@”, date);
+}
+</code></pre>
+
+              </div>
+              <div class="toc-container">
+                
+              </div>
+            </div>
+          </article>
+        </div>
+
+        
+
+        
 
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
