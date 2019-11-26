@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574760477146">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574761187098">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574760477146" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574761187098" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -116,40 +116,41 @@
 <p>注意：以下的每個步驟卻一不可唷！</p>
 </blockquote>
 <h3 id="step-1">Step 1</h3>
-<p>打開 Terminal，輸入 <code>bash java -version</code> ，檢查是否有安裝 Java（如果沒有安裝過的，記得到 Oracle 找最新的 Java 版本安裝，點此到<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html">官網</a>）<br>
+<p>打開 Terminal，輸入 <code>java -version</code> ，檢查是否有安裝 Java（如果沒有安裝過的，記得到 Oracle 找最新的 Java 版本安裝，點此到<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html">官網</a>）<br>
 <img src="https://sabrinajiang14.github.io//post-images/1574749934230.png" alt=""></p>
 <p align=center><font size=1>(圖片取自 Oracle 官網)</font></p>
 <p>如果有安裝了，應該會顯示這些訊息<br>
 <img src="https://sabrinajiang14.github.io//post-images/1574750032945.png" alt=""></p>
 <h3 id="step-2">Step 2</h3>
-<p>輸入 <code>bash git --version</code> 檢查是否有安裝 Git（如果沒有安裝過，也可以參考<a href="https://git-scm.com/book/zh-tw/v2/%E9%96%8B%E5%A7%8B-Git-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8">這篇文章</a>安裝 Git）<br>
+<p>輸入 <code>git --version</code> 檢查是否有安裝 Git（如果沒有安裝過，也可以參考<a href="https://git-scm.com/book/zh-tw/v2/%E9%96%8B%E5%A7%8B-Git-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8">這篇文章</a>安裝 Git）<br>
 <img src="https://sabrinajiang14.github.io//post-images/1574750125425.png" alt=""></p>
 <h3 id="step-3">Step 3</h3>
-<p>輸入 <code>bash ruby -v</code> 檢查是否有安裝 ruby<br>
+<p>輸入 <code>ruby -v</code> 檢查是否有安裝 ruby<br>
 <img src="https://sabrinajiang14.github.io//post-images/1574750190041.png" alt=""></p>
 <h3 id="step-4">Step 4</h3>
-<p>安裝brew，請輸入 <code>bash ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></p>
+<p>安裝brew，請輸入</p>
+<pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 
+</code></pre>
 <h3 id="step-5">Step 5</h3>
 <p>安裝 Xcode ，畢竟 Appium 還是在 Xcode 的基礎上做測試，所以還是要安裝。</p>
 <h3 id="step-6">Step 6</h3>
-<p>安裝 node，請輸入 <code>bash brew install node</code><br>
+<p>安裝 node，請輸入 <code>brew install node</code><br>
 但是在這一步一直失敗，訊息提示寫入失敗或是找不到這個資料夾。查了很多資料之後，發現應該是權限有問題，所以我先做以下步驟：</p>
-<blockquote>
-<p>。 移除 node : brew uninstall node<br>
-。 權限重新設定：sudo chown -R $(whoami) $(brew — prefix)/*<br>
-。 重新安裝 node：brew install node<br>
-。 再重下指令：brew link node<br>
-。 如果還是失敗，就改成：brew link — overwrite node</p>
-</blockquote>
+<pre><code>brew uninstall node                         #移除 node
+sudo chown -R $(whoami) $(brew — prefix)/*  #權限重新設定
+brew install node                           #重新安裝 node
+brew link node                              #再重下指令
+brew link — overwrite node                  #如果還是失敗，就改成這句
+</code></pre>
 <p>再打一次 <code>bash node -v</code>，如果成功應該就會顯示下面的資訊<br>
 <img src="https://sabrinajiang14.github.io//post-images/1574750699412.png" alt=""></p>
 <h3 id="step-7">Step 7</h3>
 <p>安裝 Appium</p>
-<pre><code class="language-bash">npm install -g appium   #安裝Server
+<pre><code>npm install -g appium   #安裝Server
 npm install wd          #安裝Client
 </code></pre>
 <p>另外，也可以裝個檢查器，檢查 Appium 是否安裝完成。</p>
-<pre><code class="language-bash">npm install appium-doctor -g    #安裝檢查器
+<pre><code>npm install appium-doctor -g    #安裝檢查器
 appium-doctor                   #進行檢查
 </code></pre>
 <p><img src="https://sabrinajiang14.github.io//post-images/1574751083574.png" alt=""><br>
