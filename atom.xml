@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T07:17:32.452Z</updated>
+    <updated>2019-11-26T07:21:26.647Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -89,7 +89,7 @@ appium-doctor                   #進行檢查
         <content type="html"><![CDATA[<p>這幾天要做一個物件的排序，結果發現 OC 的排序只能針對基本型別做排序，<br>
 如果我的 array 是放 customer object 就必須要另外實作。<br>
 這實在讓我太苦惱了啊~~~</p>
-<pre><code class="language-Objective-C">NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
+<pre><code class="language-objective-c">NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
   NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
   [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];
   NSDate *date1 = [dateFormatter dateFromString:obj1.rsvTime];
@@ -113,7 +113,7 @@ appium-doctor                   #進行檢查
         </link>
         <updated>2015-04-09T07:07:23.000Z</updated>
         <content type="html"><![CDATA[<h2 id="直接返回兩者時間差">直接返回兩者時間差</h2>
-<pre><code class="language-Objective-C">-(NSTimeInterval)compareTwoTimes:(NSString *)sExpDate {
+<pre><code class="language-objective-c">-(NSTimeInterval)compareTwoTimes:(NSString *)sExpDate {
   NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
   [formatter setDateFormat:@&quot;yyyy/MM/dd HH:mm:ss&quot;];
   NSDate *tempDate = [formatter dateFromString:sExpDate];
@@ -124,7 +124,7 @@ appium-doctor                   #進行檢查
 </code></pre>
 <hr>
 <h2 id="直接返回字串">直接返回字串</h2>
-<pre><code class="language-Objective-C">-(NSString *) compareCurrentTime:(NSDate*) compareDate {
+<pre><code class="language-objective-c">-(NSString *) compareCurrentTime:(NSDate*) compareDate {
     NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
     timeInterval = -timeInterval;
     long temp = 0;
@@ -165,13 +165,13 @@ appium-doctor                   #進行檢查
         </link>
         <updated>2015-03-24T07:02:16.000Z</updated>
         <content type="html"><![CDATA[<p>最近在寫 UITextFiled 的時候發現它有很多 delegate method 可以使用，筆記一下：</p>
-<pre><code class="language-Objective-C">#import &lt;UIKit/UIKit.h&gt;
+<pre><code class="language-objective-c">#import &lt;UIKit/UIKit.h&gt;
 
 @interface ViewController : UIViewController&lt;UITextFieldDelegate&gt;//TextField的協定
 
 @end
 </code></pre>
-<pre><code class="language-Objective-C">#import &quot;ViewController.h&quot;
+<pre><code class="language-objective-c">#import &quot;ViewController.h&quot;
 
 @interface ViewController () {
     UITextField *your_textfield_1;
@@ -390,7 +390,7 @@ appium-doctor                   #進行檢查
         <updated>2015-03-17T06:08:19.000Z</updated>
         <content type="html"><![CDATA[<p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
 <p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-Objective-C">- (BOOL)validateEmailWithString:(NSString*)email
+<pre><code class="language-objective-c">- (BOOL)validateEmailWithString:(NSString*)email
 {
     NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
@@ -407,7 +407,7 @@ appium-doctor                   #進行檢查
         <updated>2015-03-17T05:42:25.000Z</updated>
         <content type="html"><![CDATA[<p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
 寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
-<pre><code class="language-Objective-C">//NSString to NSDate
+<pre><code class="language-objective-c">//NSString to NSDate
 - (void)stringToDate {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
     NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];

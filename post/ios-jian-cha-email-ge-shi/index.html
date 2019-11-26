@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574752647215">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574752882622">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
@@ -20,7 +20,7 @@
       <div class="main-content">
         <div class="site-header">
   <a href="https://sabrinajiang14.github.io/">
-  <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574752647215" alt="">
+  <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574752882622" alt="">
   </a>
   <h1 class="site-title">
     Sab.J 的碼農世界
@@ -107,7 +107,7 @@
               <div class="post-content">
                 <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
 <p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-Objective-C">- (BOOL)validateEmailWithString:(NSString*)email
+<pre><code class="language-objective-c">- (BOOL)validateEmailWithString:(NSString*)email
 {
     NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
