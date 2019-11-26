@@ -1,109 +1,109 @@
+
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+<meta charset="utf-8" >
+
 <title>[OC] UITextField 的使用方式 | Sab.J 的碼農世界</title>
-<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574756766507">
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574757153240">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://sabrinajiang14.github.io/">
-  <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574756766507" alt="">
-  </a>
-  <h1 class="site-title">
-    Sab.J 的碼農世界
-  </h1>
-  <p class="site-description">
-    喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首頁
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          列表
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          標籤
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          關於我
-        </a>
-      
-    
-  </div>
-  <div class="social-container">
-    
-      
-        <a href="https://github.com/SabrinaJiang14" target="_blank">
-          <i class="fab fa-github"></i>
-        </a>
-      
-    
-      
-        <a href="https://twitter.com/sabrinaJiang14" target="_blank">
-          <i class="fab fa-twitter"></i>
-        </a>
-      
-    
-      
-    
-      
-    
-      
-    
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://sabrinajiang14.github.io/">
+        <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574757153240" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://sabrinajiang14.github.io/">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
   </div>
 </div>
 
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            標籤
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
         <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              [OC] UITextField 的使用方式
-            </h2>
-            <div class="post-info">
-              <span>
-                2015-03-24
-              </span>
-              <span>
-                5 min read
-              </span>
-              
-                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-                  # Objective-C
-                </a>
-              
-                <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-                  # iOS
-                </a>
-              
-            </div>
+          
+          <h2 class="post-title">[OC] UITextField 的使用方式</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2015-03-24</span>
             
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>最近在寫 UITextFiled 的時候發現它有很多 delegate method 可以使用，筆記一下：</p>
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                    Objective-C
+                    
+                      ，
+                    
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                    iOS
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p>最近在寫 UITextFiled 的時候發現它有很多 delegate method 可以使用，筆記一下：</p>
 <pre><code class="language-objective-c">#import &lt;UIKit/UIKit.h&gt;
 
 @interface ViewController : UIViewController&lt;UITextFieldDelegate&gt;//TextField的協定
@@ -320,74 +320,61 @@
 @end
 </code></pre>
 
-              </div>
-              <div class="toc-container">
-                
-              </div>
-            </div>
-          </article>
+          </div>
         </div>
 
         
           <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/ios-jian-cha-email-ge-shi">
+            <a class="purple-link" href="https://sabrinajiang14.github.io//post/ios-jian-cha-email-ge-shi">
               <h3 class="post-title">
-                [OC] 檢查 Email 格式
+                下一篇：[OC] 檢查 Email 格式
               </h3>
             </a>
           </div>
-        
+          
+      </div>
 
-        
+      
 
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+      <div class="site-footer">
+  <div class="slogan">喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…</div>
+  <div class="social-container">
+    
+      
+        <a href="https://github.com/SabrinaJiang14" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
 </div>
 
-<script>
-  hljs.initHighlightingOnLoad()
 
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
+    </div>
+    <script type="application/javascript">
 
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
+hljs.initHighlightingOnLoad()
 
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
-      </div>
-    </div>
+
+
+
   </body>
 </html>

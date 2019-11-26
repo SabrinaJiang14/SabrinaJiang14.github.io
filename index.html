@@ -1,60 +1,432 @@
+
 <html>
   <head>
-    <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+<meta charset="utf-8" >
+
 <title>Sab.J 的碼農世界</title>
-<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574756766507">
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574757153240">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700">
 
 
 
   </head>
   <body>
-    <div class="main">
-      <div class="main-content">
-        <div class="site-header">
-  <a href="https://sabrinajiang14.github.io/">
-  <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574756766507" alt="">
-  </a>
-  <h1 class="site-title">
-    Sab.J 的碼農世界
-  </h1>
-  <p class="site-description">
-    喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
-  </p>
-  <div class="menu-container">
-    
-      
-        <a href="/" class="menu">
-          首頁
-        </a>
-      
-    
-      
-        <a href="/archives" class="menu">
-          列表
-        </a>
-      
-    
-      
-        <a href="/tags" class="menu">
-          標籤
-        </a>
-      
-    
-      
-        <a href="/post/about" class="menu">
-          關於我
-        </a>
-      
-    
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://sabrinajiang14.github.io/">
+        <img class="avatar" src="https://sabrinajiang14.github.io//images/avatar.png?v=1574757153240" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://sabrinajiang14.github.io/">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
   </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            標籤
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        
+        
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
+        <h2 class="post-title">[Test] iOS 自動化測試之好用工具 — Appium</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2019-11-25</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/6YUfYMEVj">
+                Automation Testing
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+      <a href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
+        <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium.jpg')">
+        </div>
+      </a>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-create-countdown-circle">
+        <h2 class="post-title">[OC] Create countdown circle</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-05-11</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/gong-shang-sjdatepicker">
+        <h2 class="post-title">[工商] SJDatePicker</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-04-25</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S">
+                Swift
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-2-kvo">
+        <h2 class="post-title">[Swift] Observer Pattern 2 - KVO</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-04-13</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S">
+                Swift
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-nsnotificationcenter">
+        <h2 class="post-title">[Swift] Observer Pattern 1 - NSNotificationCenter</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2017-04-13</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S">
+                Swift
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian">
+        <h2 class="post-title">[OC] 如何簡單劃出一條線</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2016-07-20</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-new-uialertcontroller">
+        <h2 class="post-title">[OC] New UIAlertController</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2016-03-07</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
+        <h2 class="post-title">[OC] 如何切字串</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2016-03-07</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-uisearchcontroller-de-yong-fa">
+        <h2 class="post-title">[OC] UISearchController 的用法</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2016-03-03</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+<section class="post-item">
+    <div class="content">
+      <a href="https://sabrinajiang14.github.io//post/oc-uicoloruiimage-hu-zhuan">
+        <h2 class="post-title">[OC] UIColor，UIImage 互轉</h2>
+      </a>
+      <div class="post-abstract">
+        
+      </div>
+      <div class="post-info">
+        <span><i class="icon icon-calendar-outline"></i> 2015-11-04</span>
+        
+          <span>
+            <i class="icon icon-pricetags-outline"></i>
+            
+              <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI">
+                Objective-C
+                
+                  ，
+                
+              </a>
+            
+              <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW">
+                iOS
+                
+              </a>
+            
+          </span>
+        
+      </div>
+    </div>
+    
+  </section>
+
+
+<div class="pagination-container">
+  
+  
+    <a href="https://sabrinajiang14.github.io//page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+
+      </div>
+
+      <div class="site-footer">
+  <div class="slogan">喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…</div>
   <div class="social-container">
     
       
@@ -64,10 +436,6 @@
       
     
       
-        <a href="https://twitter.com/sabrinaJiang14" target="_blank">
-          <i class="fab fa-twitter"></i>
-        </a>
-      
     
       
     
@@ -76,342 +444,26 @@
       
     
   </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
 </div>
 
-    
-        <div class="post-container">
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
-        <h2 class="post-title">[Test] iOS 自動化測試之好用工具 — Appium</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2019-11-25
-        </span>
-        <span>
-          4 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/6YUfYMEVj" class="post-tag">
-            # Automation Testing
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-        <a href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium" class="post-feature-image" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium.jpg')">
-        </a>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-create-countdown-circle">
-        <h2 class="post-title">[OC] Create countdown circle</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2017-05-11
-        </span>
-        <span>
-          2 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/gong-shang-sjdatepicker">
-        <h2 class="post-title">[工商] SJDatePicker</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2017-04-25
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
-            # Swift
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-2-kvo">
-        <h2 class="post-title">[Swift] Observer Pattern 2 - KVO</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2017-04-13
-        </span>
-        <span>
-          2 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
-            # Swift
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/swift-observer-pattern-nsnotificationcenter">
-        <h2 class="post-title">[Swift] Observer Pattern 1 - NSNotificationCenter</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2017-04-13
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
-            # Swift
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian">
-        <h2 class="post-title">[OC] 如何簡單劃出一條線</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2016-07-20
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-new-uialertcontroller">
-        <h2 class="post-title">[OC] New UIAlertController</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2016-03-07
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
-        <h2 class="post-title">[OC] 如何切字串</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2016-03-07
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-uisearchcontroller-de-yong-fa">
-        <h2 class="post-title">[OC] UISearchController 的用法</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2016-03-03
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-    <article class="post">
-      <a href="https://sabrinajiang14.github.io//post/oc-uicoloruiimage-hu-zhuan">
-        <h2 class="post-title">[OC] UIColor，UIImage 互轉</h2>
-      </a>
-      <div class="post-info">
-        <span>
-          2015-11-04
-        </span>
-        <span>
-          1 min read
-        </span>
-        
-          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-            # Objective-C
-          </a>
-        
-          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-            # iOS
-          </a>
-        
-      </div>
-      
-      <div class="post-abstract">
-        
-      </div>
-    </article>
-  
-</div>
 
-    
-        <div class="pagination-container">
-  
-  
-    <a href="https://sabrinajiang14.github.io//page/2/" class="next-page">下一页</a>
-  
-</div>
+    </div>
+    <script type="application/javascript">
 
-    
-        <div class="site-footer">
-  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
-  <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
-</div>
+hljs.initHighlightingOnLoad()
 
-<script>
-  hljs.initHighlightingOnLoad()
-
-  let mainNavLinks = document.querySelectorAll(".markdownIt-TOC a");
-
-  // This should probably be throttled.
-  // Especially because it triggers during smooth scrolling.
-  // https://lodash.com/docs/4.17.10#throttle
-  // You could do like...
-  // window.addEventListener("scroll", () => {
-  //    _.throttle(doThatStuff, 100);
-  // });
-  // Only not doing it here to keep this Pen dependency-free.
-
-  window.addEventListener("scroll", event => {
-    let fromTop = window.scrollY;
-
-    mainNavLinks.forEach((link, index) => {
-      let section = document.getElementById(decodeURI(link.hash).substring(1));
-      let nextSection = null
-      if (mainNavLinks[index + 1]) {
-        nextSection = document.getElementById(decodeURI(mainNavLinks[index + 1].hash).substring(1));
-      }
-      if (section.offsetTop <= fromTop) {
-        if (nextSection) {
-          if (nextSection.offsetTop > fromTop) {
-            link.classList.add("current");
-          } else {
-            link.classList.remove("current");    
-          }
-        } else {
-          link.classList.add("current");
-        }
-      } else {
-        link.classList.remove("current");
-      }
-    });
-  });
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
 
 </script>
 
-      </div>
-    </div>
+
+
+
   </body>
 </html>
