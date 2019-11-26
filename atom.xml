@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T07:34:51.124Z</updated>
+    <updated>2019-11-26T07:36:25.308Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -78,6 +78,32 @@ appium-doctor                   #進行檢查
 （話說我還有實機的部分還沒有實作，等我實作完再上來補:P）</p>
 <hr>
 <p>今天這篇文章沒有寫的很專業，只能說是簡單的入門篇而已，希望有幫助到想要入門的朋友唷！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[OC] 如何簡單劃出一條線]]></title>
+        <id>https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian</id>
+        <link href="https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian">
+        </link>
+        <updated>2016-07-20T07:35:18.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-objective-c">UIImageView *imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 200, 320, 20)];
+[self.view addSubview:imageView1];
+
+UIGraphicsBeginImageContext(imageView1.frame.size);   //开始画线
+[imageView1.image drawInRect:CGRectMake(0, 0, imageView1.frame.size.width, imageView1.frame.size.height)];
+CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);  //设置线条终点形状
+    
+const CGFloat lengths[] = {5,3};
+CGContextRef line = UIGraphicsGetCurrentContext();
+CGContextSetStrokeColorWithColor(line, [UIColor redColor].CGColor);
+
+CGContextSetLineDash(line, 0, lengths, 2);  //画虚线
+CGContextMoveToPoint(line, 0.0, 20.0);    //开始画线
+CGContextAddLineToPoint(line, 310.0, 20.0);
+CGContextStrokePath(line);
+
+imageView1.image = UIGraphicsGetImageFromCurrentImageContext();
+</code></pre>
 ]]></content>
     </entry>
     <entry>
@@ -505,30 +531,6 @@ NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substrin
     NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
     NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
     return [emailTest evaluateWithObject:email];
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[OC] NSString to NSDate]]></title>
-        <id>https://sabrinajiang14.github.io//post/nsstring-to-nsdate</id>
-        <link href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
-        </link>
-        <updated>2015-03-17T05:42:25.000Z</updated>
-        <content type="html"><![CDATA[<p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
-寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
-<pre><code class="language-objective-c">//NSString to NSDate
-- (void)stringToDate {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@”%@”, strDate);
-}
-
-//NSDate to NSString
-- (void)dateToString {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSDate *date = [dateFormatter dateFromString:@”2010–08–04 16:01:03&quot;];
-    NSLog(@”%@”, date);
 }
 </code></pre>
 ]]></content>

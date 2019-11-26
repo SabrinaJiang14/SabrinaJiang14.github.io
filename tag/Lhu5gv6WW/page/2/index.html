@@ -1,8 +1,8 @@
 <html>
   <head>
-    <meta charset="utf-8" />
+  <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] New UIAlertController | Sab.J 的碼農世界</title>
+<title>iOS | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574753772351">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -78,65 +78,48 @@
   </div>
 </div>
 
-        <div class="post-detail">
-          <article class="post">
-            <h2 class="post-title">
-              [OC] New UIAlertController
-            </h2>
-            <div class="post-info">
-              <span>
-                2016-03-07
-              </span>
-              <span>
-                1 min read
-              </span>
-              
-                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-                  # Objective-C
-                </a>
-              
-                <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
-                  # iOS
-                </a>
-              
-            </div>
-            
-            <div class="post-content-wrapper">
-              <div class="post-content">
-                <p>今年開始 Alert view 有新的寫法了。</p>
-<p>需要改成用 UIAlertController 的方式去實作，不然就會得到警告喔！</p>
-<pre><code class="language-objective-c">UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
-UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-  //裡面實作
-}];
-UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-  //裡面實作
-}];
-[alert addAction:sureAction];
-[alert addAction:cancelAction];
-[self presentViewController:alert animated:YES completion:nil];
-</code></pre>
-
-              </div>
-              <div class="toc-container">
-                
-              </div>
-            </div>
-          </article>
+        <div class="current-tag-container">
+            <h2 class="title">
+                标签：# iOS
+            </h2> 
         </div>
+        <div class="post-container">
+  
+    <article class="post">
+      <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+        <h2 class="post-title">[OC] NSString to NSDate</h2>
+      </a>
+      <div class="post-info">
+        <span>
+          2015-03-17
+        </span>
+        <span>
+          1 min read
+        </span>
+        
+          <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
+            # Objective-C
+          </a>
+        
+          <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
+            # iOS
+          </a>
+        
+      </div>
+      
+      <div class="post-abstract">
+        
+      </div>
+    </article>
+  
+</div>
 
-        
-          <div class="next-post">
-            <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
-              <h3 class="post-title">
-                [OC] 如何切字串
-              </h3>
-            </a>
-          </div>
-        
-
-        
+        <div class="pagination-container">
+  
+    <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW/" class="prev-page">上一页</a>
+  
+  
+</div>
 
         <div class="site-footer">
   Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | 
