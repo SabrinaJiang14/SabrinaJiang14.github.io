@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T08:18:51.839Z</updated>
+    <updated>2019-11-26T08:20:19.878Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -81,12 +81,12 @@ appium-doctor                   #進行檢查
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[[Swift] Create countdown circle]]></title>
+        <title type="html"><![CDATA[[OC] Create countdown circle]]></title>
         <id>https://sabrinajiang14.github.io//post/swift-create-countdown-circle</id>
         <link href="https://sabrinajiang14.github.io//post/swift-create-countdown-circle">
         </link>
         <updated>2017-05-17T07:49:26.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-swift">//
+        <content type="html"><![CDATA[<pre><code class="language-objective-c">//
 //  CircleView.h
 //
 //  Created by Sabrina on 2017/5/12.
@@ -103,7 +103,7 @@ appium-doctor                   #進行檢查
 
 @end
 </code></pre>
-<pre><code class="language-swift">//
+<pre><code class="language-objective-c">//
 //  CircleView.m
 //
 //  Created by Sabrina on 2017/5/12.
