@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T06:21:39.004Z</updated>
+    <updated>2019-11-26T07:01:28.465Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -10,6 +10,76 @@
     <logo>https://sabrinajiang14.github.io//images/avatar.png</logo>
     <icon>https://sabrinajiang14.github.io//favicon.ico</icon>
     <rights>All rights reserved 2019, Sab.J 的碼農世界</rights>
+    <entry>
+        <title type="html"><![CDATA[[Test] iOS 自動化測試之好用工具 — Appium]]></title>
+        <id>https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium</id>
+        <link href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
+        </link>
+        <updated>2019-11-25T06:23:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id=""></h2>
+<p>第一次聽到 Appium 這個詞是在 2016 年的時候，當下覺得這東西真好玩，馬上就想試試。但是我光是第一步安裝就被難倒，只好默默把這個關鍵字收藏起來，等到某一天有閒暇時再來研究。</p>
+<p>事隔三年多，最近比較有點空閒了。又忽然想到這東西。想說是該來研究一下了。不過在安裝過程還是遇到一些坑，還是順手把它記下，以備不時之需。</p>
+<hr>
+<h2 id="appium-安裝簡介">Appium 安裝簡介</h2>
+<blockquote>
+<p>注意：以下的每個步驟卻一不可唷！</p>
+</blockquote>
+<h3 id="step-1">Step 1</h3>
+<p>打開 Terminal，輸入 <code>bash java -version</code> ，檢查是否有安裝 Java（如果沒有安裝過的，記得到 Oracle 找最新的 Java 版本安裝，點此到<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html">官網</a>）<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574749934230.png" alt=""></p>
+<p align=center><font size=1>(圖片取自 Oracle 官網)</font></p>
+<p>如果有安裝了，應該會顯示這些訊息<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750032945.png" alt=""></p>
+<h3 id="step-2">Step 2</h3>
+<p>輸入 <code>bash git --version</code> 檢查是否有安裝 Git（如果沒有安裝過，也可以參考<a href="https://git-scm.com/book/zh-tw/v2/%E9%96%8B%E5%A7%8B-Git-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8">這篇文章</a>安裝 Git）<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750125425.png" alt=""></p>
+<h3 id="step-3">Step 3</h3>
+<p>輸入 <code>bash ruby -v</code> 檢查是否有安裝 ruby<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750190041.png" alt=""></p>
+<h3 id="step-4">Step 4</h3>
+<p>安裝brew，請輸入 <code>bash ruby -e “$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;</code></p>
+<h3 id="step-5">Step 5</h3>
+<p>安裝 Xcode ，畢竟 Appium 還是在 Xcode 的基礎上做測試，所以還是要安裝。</p>
+<h3 id="step-6">Step 6</h3>
+<p>安裝 node，請輸入 <code>bash brew install node</code><br>
+但是在這一步一直失敗，訊息提示寫入失敗或是找不到這個資料夾。查了很多資料之後，發現應該是權限有問題，所以我先做以下步驟：</p>
+<blockquote>
+<p>。 移除 node : brew uninstall node<br>
+。 權限重新設定：sudo chown -R $(whoami) $(brew — prefix)/*<br>
+。 重新安裝 node：brew install node<br>
+。 再重下指令：brew link node<br>
+。 如果還是失敗，就改成：brew link — overwrite node</p>
+</blockquote>
+<p>再打一次 <code>bash node -v</code>，如果成功應該就會顯示下面的資訊<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750699412.png" alt=""></p>
+<h3 id="step-7">Step 7</h3>
+<p>安裝 Appium</p>
+<pre><code class="language-bash">npm install -g appium   #安裝Server
+npm install wd          #安裝Client
+</code></pre>
+<p>另外，也可以裝個檢查器，檢查 Appium 是否安裝完成。</p>
+<pre><code class="language-bash">npm install appium-doctor -g    #安裝檢查器
+appium-doctor                   #進行檢查
+</code></pre>
+<p><img src="https://sabrinajiang14.github.io//post-images/1574751083574.png" alt=""><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751088658.png" alt=""><br>
+檢查器會將預計會用到的全部檢查一遍，就算不是全部都過，也不用擔心。只要確定自己要測試的那個平台的相關軟體有安裝完成就可以囉。</p>
+<h3 id="step8">Step8</h3>
+<p>安裝 Appium Desktop<br>
+可以直接透過<a href="http://appium.io/">官網</a>下載或是到他們的 <a href="https://github.com/appium/appium-desktop/releases/download/v1.15.1/Appium-mac-1.15.1.dmg">Github</a> 去下載 Appium-mac-x.x.dmg（目前我看到最新版是這個，連結隨時都有可能換，還是從官網連過去最保險）</p>
+<p>以上步驟如果都完成了，就可以打開 Appium Desktop<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751218258.png" alt=""></p>
+<p>點選 Start Server 後會顯示另外一個畫面。<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751250657.png" alt=""></p>
+<p>點下右上角的搜尋圖示 — Start Inspector Session<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751270624.png" alt=""></p>
+<p>在這個新的畫面上可以做一些設定，像我是要測試 iOS app。所以我就填上 platformName、platformVersion、autommationName等等相關訊息。（想知道有哪些關鍵字可以填，直接點下方的 Desired Capabilities Documentation 去查看）<br>
+完成後可以將此次的測試資料儲存起來，以期下次在使用。點選 Start Session 後就會看到模擬器被啟動囉！<br>
+（話說我還有實機的部分還沒有實作，等我實作完再上來補:P）</p>
+<hr>
+<p>今天這篇文章沒有寫的很專業，只能說是簡單的入門篇而已，希望有幫助到想要入門的朋友唷！</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[OC] 檢查 Email 格式]]></title>
         <id>https://sabrinajiang14.github.io//post/ios-jian-cha-email-ge-shi</id>
