@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T07:52:25.504Z</updated>
+    <updated>2019-11-26T08:10:33.875Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -173,6 +173,20 @@ appium-doctor                   #進行檢查
 
 @end
 </code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[工商] SJDatePicker]]></title>
+        <id>https://sabrinajiang14.github.io//post/gong-shang-sjdatepicker</id>
+        <link href="https://sabrinajiang14.github.io//post/gong-shang-sjdatepicker">
+        </link>
+        <updated>2017-04-25T07:53:31.000Z</updated>
+        <content type="html"><![CDATA[<p>最近大家都一直在討論說，一個優秀的工程師，除了本身的技術，以及要有一顆保持不斷學習的心之外，應該還要有辦法留一些什麼作品集或是工具包之類的東西。<br>
+一方面是當又遇到類似的 UI 或是實作時可以快速拿出應用，不用再重新刻輪子了。<br>
+所以我就把我這個做的這一個 Picker 放到 github 上。</p>
+<p>如果有興趣的朋友，也可以直接拿去用^^</p>
+<figure data-type="image" tabindex="1"><img src="https://sabrinajiang14.github.io//post-images/1574755709723.png" alt=""></figure>
+<p><a href="https://github.com/SabrinaJiang14/SJDatePicker">連結</a>在此</p>
 ]]></content>
     </entry>
     <entry>
@@ -402,32 +416,6 @@ NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substrin
 
 //UIImage轉UIColor
 [UIColor colorWithPatternImage:[UIImageimageNamed:@“bg.png&quot;]] 
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[[OC] 使用客製化物件的時間屬性做排序]]></title>
-        <id>https://sabrinajiang14.github.io//post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu</id>
-        <link href="https://sabrinajiang14.github.io//post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu">
-        </link>
-        <updated>2015-09-02T07:13:52.000Z</updated>
-        <content type="html"><![CDATA[<p>這幾天要做一個物件的排序，結果發現 OC 的排序只能針對基本型別做排序，<br>
-如果我的 array 是放 customer object 就必須要另外實作。<br>
-這實在讓我太苦惱了啊~~~</p>
-<pre><code class="language-objective-c">NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-  [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];
-  NSDate *date1 = [dateFormatter dateFromString:obj1.rsvTime];
-  NSDate *date2 = [dateFormatter dateFromString:obj2.rsvTime];
-                
-  if ([date1 compare:date2] == NSOrderedDescending) {
-    return (NSComparisonResult)NSOrderedDescending;
-  } else if ([date1 compare:date2] == NSOrderedAscending) {
-    return (NSComparisonResult)NSOrderedAscending;
-  } else {
-    return (NSComparisonResult)NSOrderedSame;
-  }
-}];
 </code></pre>
 ]]></content>
     </entry>
