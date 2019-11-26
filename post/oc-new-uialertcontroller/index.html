@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] NSString to NSDate | Sab.J 的碼農世界</title>
+<title>[OC] New UIAlertController | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574753673481">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,11 +81,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] NSString to NSDate
+              [OC] New UIAlertController
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2016-03-07
               </span>
               <span>
                 1 min read
@@ -103,21 +103,18 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
-寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
-<pre><code class="language-objective-c">//NSString to NSDate
-- (void)stringToDate {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@”%@”, strDate);
-}
-
-//NSDate to NSString
-- (void)dateToString {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSDate *date = [dateFormatter dateFromString:@”2010–08–04 16:01:03&quot;];
-    NSLog(@”%@”, date);
-}
+                <p>今年開始 Alert view 有新的寫法了。</p>
+<p>需要改成用 UIAlertController 的方式去實作，不然就會得到警告喔！</p>
+<pre><code class="language-objective-c">UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
+UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+  //裡面實作
+}];
+UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+  //裡面實作
+}];
+[alert addAction:sureAction];
+[alert addAction:cancelAction];
+[self presentViewController:alert animated:YES completion:nil];
 </code></pre>
 
               </div>
@@ -128,6 +125,15 @@
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
+              <h3 class="post-title">
+                [OC] 如何切字串
+              </h3>
+            </a>
+          </div>
         
 
         

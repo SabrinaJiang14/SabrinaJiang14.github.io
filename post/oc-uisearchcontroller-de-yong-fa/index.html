@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] NSString to NSDate | Sab.J 的碼農世界</title>
+<title>[OC] UISearchController 的用法 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574753673481">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,11 +81,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] NSString to NSDate
+              [OC] UISearchController 的用法
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2016-03-03
               </span>
               <span>
                 1 min read
@@ -103,20 +103,40 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
-寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
-<pre><code class="language-objective-c">//NSString to NSDate
-- (void)stringToDate {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
-    NSLog(@”%@”, strDate);
+                <pre><code class="language-objective-c">@interface SearchAddressController : UIViewController&lt;UISearchControllerDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate&gt;
+
+@property (weak, nonatomic) IBOutlet UITableView *contectTable;
+@property (nonatomic, strong) UISearchController *searchController;
+</code></pre>
+<pre><code class="language-objective-c">- (void)viewDidLoad {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.scopeButtonTitles = @[];
+    self.searchController.searchBar.delegate = self;
+    self.contectTable.tableHeaderView = self.searchController.searchBar;
+    [self.searchController.searchBar sizeToFit];
+    self.definesPresentationContext = YES;
 }
 
-//NSDate to NSString
-- (void)dateToString {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
-    NSDate *date = [dateFormatter dateFromString:@”2010–08–04 16:01:03&quot;];
-    NSLog(@”%@”, date);
+#pragma mark - UISearchController delegate
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString *searchString = searchController.searchBar.text;
+    if (searchString.length != 0) {
+        shouldShowSearchResults = true;
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@&quot;self CONTAINS[c] %@&quot;, searchString];
+        searchResultArray = [addressArray filteredArrayUsingPredicate:resultPredicate];
+        [self.contectTable reloadData];
+    }else{
+        shouldShowSearchResults = false;
+        [self.contectTable reloadData];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    [self updateSearchResultsForSearchController:self.searchController];
 }
 </code></pre>
 
@@ -128,6 +148,15 @@
           </article>
         </div>
 
+        
+          <div class="next-post">
+            <div class="next">下一篇</div>
+            <a href="https://sabrinajiang14.github.io//post/oc-uicoloruiimage-hu-zhuan">
+              <h3 class="post-title">
+                [OC] UIColor，UIImage 互轉
+              </h3>
+            </a>
+          </div>
         
 
         

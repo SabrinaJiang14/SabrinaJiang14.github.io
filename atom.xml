@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T07:28:36.349Z</updated>
+    <updated>2019-11-26T07:34:51.124Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -81,6 +81,27 @@ appium-doctor                   #進行檢查
 ]]></content>
     </entry>
     <entry>
+        <title type="html"><![CDATA[[OC] New UIAlertController]]></title>
+        <id>https://sabrinajiang14.github.io//post/oc-new-uialertcontroller</id>
+        <link href="https://sabrinajiang14.github.io//post/oc-new-uialertcontroller">
+        </link>
+        <updated>2016-03-07T07:32:09.000Z</updated>
+        <content type="html"><![CDATA[<p>今年開始 Alert view 有新的寫法了。</p>
+<p>需要改成用 UIAlertController 的方式去實作，不然就會得到警告喔！</p>
+<pre><code class="language-objective-c">UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
+UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+  //裡面實作
+}];
+UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+  //裡面實作
+}];
+[alert addAction:sureAction];
+[alert addAction:cancelAction];
+[self presentViewController:alert animated:YES completion:nil];
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
         <title type="html"><![CDATA[[OC] 如何切字串]]></title>
         <id>https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan</id>
         <link href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
@@ -97,6 +118,50 @@ NSLog(@&quot;Original String: %@&quot;, str);
 NSLog(@&quot;substringFromIndex: 5 ==&gt; %@&quot;, [str substringFromIndex:5]);  
 NSLog(@&quot;substringToIndex: 5 ==&gt; %@&quot;, [str substringToIndex:5]);  
 NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substringWithRange:NSMakeRange(7, 3)]); 
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[OC] UISearchController 的用法]]></title>
+        <id>https://sabrinajiang14.github.io//post/oc-uisearchcontroller-de-yong-fa</id>
+        <link href="https://sabrinajiang14.github.io//post/oc-uisearchcontroller-de-yong-fa">
+        </link>
+        <updated>2016-03-03T07:29:15.000Z</updated>
+        <content type="html"><![CDATA[<pre><code class="language-objective-c">@interface SearchAddressController : UIViewController&lt;UISearchControllerDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate&gt;
+
+@property (weak, nonatomic) IBOutlet UITableView *contectTable;
+@property (nonatomic, strong) UISearchController *searchController;
+</code></pre>
+<pre><code class="language-objective-c">- (void)viewDidLoad {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.dimsBackgroundDuringPresentation = NO;
+    self.searchController.searchBar.scopeButtonTitles = @[];
+    self.searchController.searchBar.delegate = self;
+    self.contectTable.tableHeaderView = self.searchController.searchBar;
+    [self.searchController.searchBar sizeToFit];
+    self.definesPresentationContext = YES;
+}
+
+#pragma mark - UISearchController delegate
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString *searchString = searchController.searchBar.text;
+    if (searchString.length != 0) {
+        shouldShowSearchResults = true;
+        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@&quot;self CONTAINS[c] %@&quot;, searchString];
+        searchResultArray = [addressArray filteredArrayUsingPredicate:resultPredicate];
+        [self.contectTable reloadData];
+    }else{
+        shouldShowSearchResults = false;
+        [self.contectTable reloadData];
+    }
+}
+
+- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    [self updateSearchResultsForSearchController:self.searchController];
+}
 </code></pre>
 ]]></content>
     </entry>
