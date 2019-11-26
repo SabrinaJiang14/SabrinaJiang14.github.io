@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] New UIAlertController | Sab.J 的碼農世界</title>
+<title>[Swift] Observer Pattern - NSNotificationCenter | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574754255870">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,18 +81,18 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] New UIAlertController
+              [Swift] Observer Pattern - NSNotificationCenter
             </h2>
             <div class="post-info">
               <span>
-                2016-03-07
+                2017-04-13
               </span>
               <span>
                 1 min read
               </span>
               
-                <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="post-tag">
-                  # Objective-C
+                <a href="https://sabrinajiang14.github.io//tag/ge2CilX0S" class="post-tag">
+                  # Swift
                 </a>
               
                 <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="post-tag">
@@ -103,18 +103,29 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>今年開始 Alert view 有新的寫法了。</p>
-<p>需要改成用 UIAlertController 的方式去實作，不然就會得到警告喔！</p>
-<pre><code class="language-objective-c">UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
-UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-  //裡面實作
-}];
-UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot; style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-  //裡面實作
-}];
-[alert addAction:sureAction];
-[alert addAction:cancelAction];
-[self presentViewController:alert animated:YES completion:nil];
+                <p>Swift 的觀察者模式實作：</p>
+<pre><code class="language-swift">static let CHANGE_BACKGROUND_COLOR = &quot;changeBackgroundColor&quot;
+
+func viewDidLoad(){
+  super.viewDidLoad()
+  
+  //加入觀察者
+  NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(changeBackgroundColor), name: CHANGE_BACKGROUND_COLOR, object: nil)
+}
+
+//移除觀察者
+func viewWillDisappear(animated: Bool){
+  NSNotificationCenter.defaultCenter().removeObserver(self, name: CHANGE_BACKGROUND_COLOR, object: nil)
+}
+
+//實作
+func changeBackgroundColor(){
+  self.view.backgroundColor = UIColor.redColor()
+}
+</code></pre>
+<pre><code class="language-swift">func button_Click(){
+  NSNotificationCenter.defaultCenter().postNotificationName(viewcontroller.CHANGE_BACKGROUND_COLOR, object: nil)
+}
 </code></pre>
 
               </div>
@@ -128,9 +139,9 @@ UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot;
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
+            <a href="https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian">
               <h3 class="post-title">
-                [OC] 如何切字串
+                [OC] 如何簡單劃出一條線
               </h3>
             </a>
           </div>
