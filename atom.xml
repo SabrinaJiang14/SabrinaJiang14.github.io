@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T09:09:10.344Z</updated>
+    <updated>2019-11-26T09:16:33.060Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -200,13 +200,13 @@ appium-doctor                   #進行檢查
 <li>只支援 NSObject 的子物件</li>
 <li>要加入關鍵字 dynamic</li>
 </ol>
-<pre><code class="language-swift">class album: NSObject {
+<pre><code>class album: NSObject {
     dynamic var id:String?
     dynamic var name:String?
     dynamic var url:String?
 }
 </code></pre>
-<pre><code class="language-swift">class ViewController: UIViewController {
+<pre><code>class ViewController: UIViewController {
 
     let ab:album = album()
     
@@ -258,7 +258,7 @@ appium-doctor                   #進行檢查
         </link>
         <updated>2017-04-13T07:38:56.000Z</updated>
         <content type="html"><![CDATA[<p>Swift 的觀察者模式實作：</p>
-<pre><code class="language-swift">static let CHANGE_BACKGROUND_COLOR = &quot;changeBackgroundColor&quot;
+<pre><code>static let CHANGE_BACKGROUND_COLOR = &quot;changeBackgroundColor&quot;
 
 func viewDidLoad(){
   super.viewDidLoad()
@@ -277,7 +277,7 @@ func changeBackgroundColor(){
   self.view.backgroundColor = UIColor.redColor()
 }
 </code></pre>
-<pre><code class="language-swift">func button_Click(){
+<pre><code>func button_Click(){
   NSNotificationCenter.defaultCenter().postNotificationName(viewcontroller.CHANGE_BACKGROUND_COLOR, object: nil)
 }
 </code></pre>
@@ -289,7 +289,7 @@ func changeBackgroundColor(){
         <link href="https://sabrinajiang14.github.io//post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian">
         </link>
         <updated>2016-07-20T07:35:18.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-objective-c">UIImageView *imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 200, 320, 20)];
+        <content type="html"><![CDATA[<pre><code>UIImageView *imageView1 = [[UIImageView alloc]initWithFrame:CGRectMake(0, 200, 320, 20)];
 [self.view addSubview:imageView1];
 
 UIGraphicsBeginImageContext(imageView1.frame.size);   //开始画线
@@ -317,7 +317,7 @@ imageView1.image = UIGraphicsGetImageFromCurrentImageContext();
         <updated>2016-03-07T07:32:09.000Z</updated>
         <content type="html"><![CDATA[<p>今年開始 Alert view 有新的寫法了。</p>
 <p>需要改成用 UIAlertController 的方式去實作，不然就會得到警告喔！</p>
-<pre><code class="language-objective-c">UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
+<pre><code>UIAlertController *alert = [UIAlertController alertControllerWithTitle:@&quot;刪除&quot; message:@&quot;確定要刪除？&quot; preferredStyle:UIAlertControllerStyleAlert];
 UIAlertAction *sureAction = [UIAlertAction actionWithTitle:@&quot;OK&quot; style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
   //裡面實作
 }];
@@ -336,7 +336,7 @@ UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@&quot;Cancel&quot;
         <link href="https://sabrinajiang14.github.io//post/oc-ru-he-qie-zi-chuan">
         </link>
         <updated>2016-03-07T07:26:48.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-objective-c">NSString類別裡，總共有三種切字串的方法
+        <content type="html"><![CDATA[<pre><code>NSString類別裡，總共有三種切字串的方法
 1. - (NSString *)substringFromIndex:(NSUInteger)anIndex
 2. - (NSString *)substringToIndex:(NSUInteger)anIndex
 3. - (NSString *)substringWithRange:(NSRange)aRange
@@ -356,12 +356,12 @@ NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substrin
         <link href="https://sabrinajiang14.github.io//post/oc-uisearchcontroller-de-yong-fa">
         </link>
         <updated>2016-03-03T07:29:15.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-objective-c">@interface SearchAddressController : UIViewController&lt;UISearchControllerDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate&gt;
+        <content type="html"><![CDATA[<pre><code>@interface SearchAddressController : UIViewController&lt;UISearchControllerDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate&gt;
 
 @property (weak, nonatomic) IBOutlet UITableView *contectTable;
 @property (nonatomic, strong) UISearchController *searchController;
 </code></pre>
-<pre><code class="language-objective-c">- (void)viewDidLoad {
+<pre><code>- (void)viewDidLoad {
     self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
     self.searchController.searchResultsUpdater = self;
     self.searchController.dimsBackgroundDuringPresentation = NO;
@@ -400,7 +400,7 @@ NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substrin
         <link href="https://sabrinajiang14.github.io//post/oc-uicoloruiimage-hu-zhuan">
         </link>
         <updated>2015-11-04T07:22:06.000Z</updated>
-        <content type="html"><![CDATA[<pre><code class="language-objective-c">//UIColor 轉 UIImage 
+        <content type="html"><![CDATA[<pre><code>//UIColor 轉 UIImage 
 - (UIImage*) createImageWithColor: (UIColor*) color  
     {  
         CGRect rect=CGRectMake(0,0, 1, 1);  

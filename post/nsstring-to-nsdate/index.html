@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574759331372">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574759790382">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -30,7 +30,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574759331372" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574759790382" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -106,7 +106,7 @@
             <div class="post-content">
               <p>改寫 iOS 後最不習慣的就是字串跟日期的轉換，以前寫 C# 的時候只要在日期後面 .toString(“yyyy-mm-dd”)，就可以拿到我要的字串。<br>
 寫到現在還是很不直覺啊！備註一下，免得忘記。</p>
-<pre><code class="language-objective-c">//NSString to NSDate
+<pre><code>//NSString to NSDate
 - (void)stringToDate {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];[dateFormatter setDateFormat:@”yyyy-MM-dd HH:mm:ss”];
     NSString *strDate = [dateFormatter stringFromDate:[NSDate date]];
