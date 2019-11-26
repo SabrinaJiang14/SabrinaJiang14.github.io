@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2019-11-26T07:05:31.417Z</updated>
+    <updated>2019-11-26T07:17:32.452Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io//atom.xml"/>
@@ -78,6 +78,84 @@ appium-doctor                   #進行檢查
 （話說我還有實機的部分還沒有實作，等我實作完再上來補:P）</p>
 <hr>
 <p>今天這篇文章沒有寫的很專業，只能說是簡單的入門篇而已，希望有幫助到想要入門的朋友唷！</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[OC] 使用客製化物件的時間屬性做排序]]></title>
+        <id>https://sabrinajiang14.github.io//post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu</id>
+        <link href="https://sabrinajiang14.github.io//post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu">
+        </link>
+        <updated>2015-09-02T07:13:52.000Z</updated>
+        <content type="html"><![CDATA[<p>這幾天要做一個物件的排序，結果發現 OC 的排序只能針對基本型別做排序，<br>
+如果我的 array 是放 customer object 就必須要另外實作。<br>
+這實在讓我太苦惱了啊~~~</p>
+<pre><code class="language-Objective-C">NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];
+  NSDate *date1 = [dateFormatter dateFromString:obj1.rsvTime];
+  NSDate *date2 = [dateFormatter dateFromString:obj2.rsvTime];
+                
+  if ([date1 compare:date2] == NSOrderedDescending) {
+    return (NSComparisonResult)NSOrderedDescending;
+  } else if ([date1 compare:date2] == NSOrderedAscending) {
+    return (NSComparisonResult)NSOrderedAscending;
+  } else {
+    return (NSComparisonResult)NSOrderedSame;
+  }
+}];
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[OC] 比較兩個時間差]]></title>
+        <id>https://sabrinajiang14.github.io//post/oc-bi-jiao-liang-shi-jian-chai</id>
+        <link href="https://sabrinajiang14.github.io//post/oc-bi-jiao-liang-shi-jian-chai">
+        </link>
+        <updated>2015-04-09T07:07:23.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="直接返回兩者時間差">直接返回兩者時間差</h2>
+<pre><code class="language-Objective-C">-(NSTimeInterval)compareTwoTimes:(NSString *)sExpDate {
+  NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+  [formatter setDateFormat:@&quot;yyyy/MM/dd HH:mm:ss&quot;];
+  NSDate *tempDate = [formatter dateFromString:sExpDate];
+  NSDate *nowDate = [NSDate date];
+  NSTimeInterval difftime = [tempDate timeIntervalSinceDate:nowDate];
+  return difftime
+}
+</code></pre>
+<hr>
+<h2 id="直接返回字串">直接返回字串</h2>
+<pre><code class="language-Objective-C">-(NSString *) compareCurrentTime:(NSDate*) compareDate {
+    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
+    timeInterval = -timeInterval;
+    long temp = 0;
+    NSString *result;
+    if (timeInterval &lt; 60) {
+        result = [NSString stringWithFormat:@&quot;剛剛&quot;];
+    }
+    else if((temp = timeInterval/60) &lt;60){
+        result = [NSString stringWithFormat:@&quot;%ld分鐘前&quot;,temp];
+    }
+    
+    else if((temp = temp/60) &lt;24){
+        result = [NSString stringWithFormat:@&quot;%ld小時前&quot;,temp];
+    }
+    
+    else if((temp = temp/24) &lt;30){
+        result = [NSString stringWithFormat:@&quot;%ld天前&quot;,temp];
+    }
+    
+    else if((temp = temp/30) &lt;12){
+        result = [NSString stringWithFormat:@&quot;%ld月前&quot;,temp];
+    }
+
+    else{
+        temp = temp/12;
+        result = [NSString stringWithFormat:@&quot;%ld年前&quot;,temp];
+    }
+    
+    return  result;
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>

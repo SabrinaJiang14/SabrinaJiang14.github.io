@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
+<title>[OC] 使用客製化物件的時間屬性做排序 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574752647215">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,11 +81,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] 檢查 Email 格式
+              [OC] 使用客製化物件的時間屬性做排序
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2015-09-02
               </span>
               <span>
                 1 min read
@@ -101,18 +101,25 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://sabrinajiang14.github.io//post-images/ios-jian-cha-email-ge-shi.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
-<p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-Objective-C">- (BOOL)validateEmailWithString:(NSString*)email
-{
-    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
-    return [emailTest evaluateWithObject:email];
-}
+                <p>這幾天要做一個物件的排序，結果發現 OC 的排序只能針對基本型別做排序，<br>
+如果我的 array 是放 customer object 就必須要另外實作。<br>
+這實在讓我太苦惱了啊~~~</p>
+<pre><code class="language-Objective-C">NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
+  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+  [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];
+  NSDate *date1 = [dateFormatter dateFromString:obj1.rsvTime];
+  NSDate *date2 = [dateFormatter dateFromString:obj2.rsvTime];
+                
+  if ([date1 compare:date2] == NSOrderedDescending) {
+    return (NSComparisonResult)NSOrderedDescending;
+  } else if ([date1 compare:date2] == NSOrderedAscending) {
+    return (NSComparisonResult)NSOrderedAscending;
+  } else {
+    return (NSComparisonResult)NSOrderedSame;
+  }
+}];
 </code></pre>
 
               </div>
@@ -126,9 +133,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+            <a href="https://sabrinajiang14.github.io//post/oc-bi-jiao-liang-shi-jian-chai">
               <h3 class="post-title">
-                [OC] NSString to NSDate
+                [OC] 比較兩個時間差
               </h3>
             </a>
           </div>

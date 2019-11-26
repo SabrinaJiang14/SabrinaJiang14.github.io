@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] 檢查 Email 格式 | Sab.J 的碼農世界</title>
+<title>[OC] 比較兩個時間差 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574752647215">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,11 +81,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] 檢查 Email 格式
+              [OC] 比較兩個時間差
             </h2>
             <div class="post-info">
               <span>
-                2015-03-17
+                2015-04-09
               </span>
               <span>
                 1 min read
@@ -101,23 +101,64 @@
               
             </div>
             
-              <img class="post-feature-image" src="https://sabrinajiang14.github.io//post-images/ios-jian-cha-email-ge-shi.jpg" alt="">
-            
             <div class="post-content-wrapper">
               <div class="post-content">
-                <p>現在的 app 幾乎都會有會員登入這種功能，除了使用 Google / Facebook / Twitter 的 SSO 登入之外，大部分應該也會有自己的會員系統。</p>
-<p>所以在登入的時候就會需要檢查格式，我個人非常喜歡用 Regular Expression 的方式檢查格式。非常淺顯易懂，又不用擔心做錯。</p>
-<pre><code class="language-Objective-C">- (BOOL)validateEmailWithString:(NSString*)email
-{
-    NSString *emailRegex = @&quot;[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}&quot;;
-    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@&quot;SELF MATCHES %@&quot;, emailRegex];
-    return [emailTest evaluateWithObject:email];
+                <h2 id="直接返回兩者時間差">直接返回兩者時間差</h2>
+<pre><code class="language-Objective-C">-(NSTimeInterval)compareTwoTimes:(NSString *)sExpDate {
+  NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+  [formatter setDateFormat:@&quot;yyyy/MM/dd HH:mm:ss&quot;];
+  NSDate *tempDate = [formatter dateFromString:sExpDate];
+  NSDate *nowDate = [NSDate date];
+  NSTimeInterval difftime = [tempDate timeIntervalSinceDate:nowDate];
+  return difftime
+}
+</code></pre>
+<hr>
+<h2 id="直接返回字串">直接返回字串</h2>
+<pre><code class="language-Objective-C">-(NSString *) compareCurrentTime:(NSDate*) compareDate {
+    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
+    timeInterval = -timeInterval;
+    long temp = 0;
+    NSString *result;
+    if (timeInterval &lt; 60) {
+        result = [NSString stringWithFormat:@&quot;剛剛&quot;];
+    }
+    else if((temp = timeInterval/60) &lt;60){
+        result = [NSString stringWithFormat:@&quot;%ld分鐘前&quot;,temp];
+    }
+    
+    else if((temp = temp/60) &lt;24){
+        result = [NSString stringWithFormat:@&quot;%ld小時前&quot;,temp];
+    }
+    
+    else if((temp = temp/24) &lt;30){
+        result = [NSString stringWithFormat:@&quot;%ld天前&quot;,temp];
+    }
+    
+    else if((temp = temp/30) &lt;12){
+        result = [NSString stringWithFormat:@&quot;%ld月前&quot;,temp];
+    }
+
+    else{
+        temp = temp/12;
+        result = [NSString stringWithFormat:@&quot;%ld年前&quot;,temp];
+    }
+    
+    return  result;
 }
 </code></pre>
 
               </div>
               <div class="toc-container">
-                
+                <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9E%E5%85%A9%E8%80%85%E6%99%82%E9%96%93%E5%B7%AE">直接返回兩者時間差</a></li>
+<li><a href="#%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9E%E5%AD%97%E4%B8%B2">直接返回字串</a></li>
+</ul>
+</li>
+</ul>
+
               </div>
             </div>
           </article>
@@ -126,9 +167,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/nsstring-to-nsdate">
+            <a href="https://sabrinajiang14.github.io//post/oc-uitextfield-de-shi-yong-fang-shi">
               <h3 class="post-title">
-                [OC] NSString to NSDate
+                [OC] UITextField 的使用方式
               </h3>
             </a>
           </div>
