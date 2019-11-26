@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>[OC] 比較兩個時間差 | Sab.J 的碼農世界</title>
+<title>[OC] 如何切字串 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…" />
 <link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574753301347">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
@@ -81,11 +81,11 @@
         <div class="post-detail">
           <article class="post">
             <h2 class="post-title">
-              [OC] 比較兩個時間差
+              [OC] 如何切字串
             </h2>
             <div class="post-info">
               <span>
-                2015-04-09
+                2016-03-07
               </span>
               <span>
                 1 min read
@@ -103,62 +103,22 @@
             
             <div class="post-content-wrapper">
               <div class="post-content">
-                <h2 id="直接返回兩者時間差">直接返回兩者時間差</h2>
-<pre><code class="language-objective-c">-(NSTimeInterval)compareTwoTimes:(NSString *)sExpDate {
-  NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-  [formatter setDateFormat:@&quot;yyyy/MM/dd HH:mm:ss&quot;];
-  NSDate *tempDate = [formatter dateFromString:sExpDate];
-  NSDate *nowDate = [NSDate date];
-  NSTimeInterval difftime = [tempDate timeIntervalSinceDate:nowDate];
-  return difftime
-}
-</code></pre>
-<hr>
-<h2 id="直接返回字串">直接返回字串</h2>
-<pre><code class="language-objective-c">-(NSString *) compareCurrentTime:(NSDate*) compareDate {
-    NSTimeInterval  timeInterval = [compareDate timeIntervalSinceNow];
-    timeInterval = -timeInterval;
-    long temp = 0;
-    NSString *result;
-    if (timeInterval &lt; 60) {
-        result = [NSString stringWithFormat:@&quot;剛剛&quot;];
-    }
-    else if((temp = timeInterval/60) &lt;60){
-        result = [NSString stringWithFormat:@&quot;%ld分鐘前&quot;,temp];
-    }
-    
-    else if((temp = temp/60) &lt;24){
-        result = [NSString stringWithFormat:@&quot;%ld小時前&quot;,temp];
-    }
-    
-    else if((temp = temp/24) &lt;30){
-        result = [NSString stringWithFormat:@&quot;%ld天前&quot;,temp];
-    }
-    
-    else if((temp = temp/30) &lt;12){
-        result = [NSString stringWithFormat:@&quot;%ld月前&quot;,temp];
-    }
+                <pre><code class="language-objective-c">NSString類別裡，總共有三種切字串的方法
+1. - (NSString *)substringFromIndex:(NSUInteger)anIndex
+2. - (NSString *)substringToIndex:(NSUInteger)anIndex
+3. - (NSString *)substringWithRange:(NSRange)aRange
 
-    else{
-        temp = temp/12;
-        result = [NSString stringWithFormat:@&quot;%ld年前&quot;,temp];
-    }
-    
-    return  result;
-}
+==================
+NSString *str = @&quot;1234567890&quot;;  
+NSLog(@&quot;Original String: %@&quot;, str);  
+NSLog(@&quot;substringFromIndex: 5 ==&gt; %@&quot;, [str substringFromIndex:5]);  
+NSLog(@&quot;substringToIndex: 5 ==&gt; %@&quot;, [str substringToIndex:5]);  
+NSLog(@&quot;substringWithRange: from 7, length 3 ==&gt; %@&quot;, [str substringWithRange:NSMakeRange(7, 3)]); 
 </code></pre>
 
               </div>
               <div class="toc-container">
-                <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9E%E5%85%A9%E8%80%85%E6%99%82%E9%96%93%E5%B7%AE">直接返回兩者時間差</a></li>
-<li><a href="#%E7%9B%B4%E6%8E%A5%E8%BF%94%E5%9B%9E%E5%AD%97%E4%B8%B2">直接返回字串</a></li>
-</ul>
-</li>
-</ul>
-
+                
               </div>
             </div>
           </article>
@@ -167,9 +127,9 @@
         
           <div class="next-post">
             <div class="next">下一篇</div>
-            <a href="https://sabrinajiang14.github.io//post/oc-uitextfield-de-shi-yong-fang-shi">
+            <a href="https://sabrinajiang14.github.io//post/oc-uicoloruiimage-hu-zhuan">
               <h3 class="post-title">
-                [OC] UITextField 的使用方式
+                [OC] UIColor，UIImage 互轉
               </h3>
             </a>
           </div>
