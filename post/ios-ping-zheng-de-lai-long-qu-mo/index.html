@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574838838866">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574839066734">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574838838866" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574839066734" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -137,8 +137,10 @@ Mac 系統自帶一組公鑰 &amp; 私鑰，當我們從 Keychain Access 匯出 
 <img src="https://sabrinajiang14.github.io//post-images/1574833745851.png" alt=""><br>
 接下來，我們需要把 CSR 上傳到 Certificates ，同時 Apple 會用私鑰對 CSR 進行加密，我們再把 .cer 檔下載回來後點擊兩下後安裝到電腦裡面。回到 Keychain Access 可以看到原本的 .cer 檔跟我們的私鑰綁再一起。</p>
 <h3 id="provisioning-profile">Provisioning Profile</h3>
-<p>當我們設定好 Identifiers &amp; Devices 來到 Provisioning Profile 這區新增一個 Profile。下載開發者設定好的 xxx.mobileprovision 檔後導出 .plist 就會看到這個檔案裡面包含了 AppIDName, TeamIdentifier, UUID, application-identifier 等資訊。<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574838160304.png" alt=""></p>
+<p>當我們設定好 Identifiers &amp; Devices 來到 Provisioning Profile 這區新增一個 Profile。下載開發者設定好的 xxx.mobileprovision 檔後導出 .plist 就會看到這個檔案裡面包含了 AppIDName, TeamIdentifier, UUID, application-identifier 等資訊。</p>
+<pre><code>security cms -D -i your provisioning name.mobileprovision -o provision.plist
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://sabrinajiang14.github.io//post-images/1574838160304.png" alt=""></figure>
 <pre><code>AppIDName &gt; App 的名稱
 TeamIdentifier &gt; 憑證編號
 UUID &gt; 註冊的裝置
