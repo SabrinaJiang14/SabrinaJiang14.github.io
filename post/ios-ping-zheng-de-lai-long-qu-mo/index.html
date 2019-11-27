@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>[OC] UIColor，UIImage 互轉 | Sab.J 的碼農世界</title>
+<title>[iOS] 憑證的來龍去脈 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -109,34 +109,40 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">[OC] UIColor，UIImage 互轉</h2>
-            <div class="post-date">2015-11-04</div>
+            <h2 class="post-title">[iOS] 憑證的來龍去脈</h2>
+            <div class="post-date">2019-11-26</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-ping-zheng-de-lai-long-qu-mo.jpg')">
+              </div>
             
             <div class="post-content">
-              <pre><code>//UIColor 轉 UIImage 
-- (UIImage*) createImageWithColor: (UIColor*) color  
-    {  
-        CGRect rect=CGRectMake(0,0, 1, 1);  
-        UIGraphicsBeginImageContext(rect.size);  
-        CGContextRef context = UIGraphicsGetCurrentContext();  
-        CGContextSetFillColorWithColor(context, [color CGColor]);  
-        CGContextFillRect(context, rect);  
-        UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();  
-        UIGraphicsEndImageContext();  
-        return theImage;  
-    } 
-
-
-//UIImage轉UIColor
-[UIColor colorWithPatternImage:[UIImageimageNamed:@“bg.png&quot;]] 
-</code></pre>
+              <h2 id="前言">前言</h2>
+<p>說到這個憑證，一直以來都是我很頭大的一個項目。只知道要從電腦裡面匯出 CSR，然後下載 .cer 檔案，還要下載 provision profile 等。就是一些很不直覺的動作。</p>
+<p>後來不知道 Xcode 第幾版後開始支援 <strong>Automatically manage signing</strong><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574761850597.png" alt=""></p>
+<p>開心到睡不著啦😆😆😆，只要一勾起來就什麼煩惱都沒有了啊！！當下覺得這真的是這世界上最偉大的發明了啊～～～</p>
+<p><strong>But, 就是這個 But</strong>...<br>
+就在某一次的面試當中被洗臉之後，我發現還是不能這樣得過且過，還是要認真把憑證搞清楚...</p>
+<hr>
+<p>了解憑證之前，要先知道什麼是 <code>非對稱式加密</code>，詳情請看➡️<a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86">維基百科</a> ⬅️。</p>
+<p>看完非對稱式加密後，就可以來看看用戶版的 app 下載與驗證的過程</p>
+<h2 id="用戶版">用戶版</h2>
+<p>在每個 iOS 裝置出廠時就配置好一把 Apple 產出的 Public key，而 Private Key 就由 Apple 自己保管著。當開發者將開發好的 App 上傳到 Apple 時，Apple 就會用他的 Private Key 對 App 加密。而用戶透過 App Store 下載 App，裝置上的 Public key 就會對 App 進行驗證，若驗證成功表示這個 App 沒有修改過，<code>也就是每一個 App 都是通過 Apple 官方允許可以正常安裝在裝置上的。</code></p>
+<h2 id="開發者版">開發者版</h2>
+<p>但是在開發過程中，開發者會需要不斷的除錯或是增加新功能，總不能每次開發到一個階段就要送到 App Store 下載驗證吧！</p>
+<hr>
+<p>參考文件：<br>
+<a href="http://xelz.info/blog/2019/01/11/ios-code-signature/">深度长文：细说iOS代码签名</a> (非常推薦👍👍👍)<br>
+<a href="https://juejin.im/post/5dac01e6f265da5b64649e6b">iOS 应用签名原理及重签技术</a><br>
+<a href="https://www.jianshu.com/p/4f6245fa2e3c">iOS-签名机制和证书原理</a><br>
+<a href="http://blog.cnbang.net/tech/3386/">iOS App 签名的原理</a></p>
 
             </div>
             
               <div class="tag-container">
                 
-                  <a href="https://sabrinajiang14.github.io//tag/XOV5UtTMI" class="tag">
-                    Objective-C
+                  <a href="https://sabrinajiang14.github.io//tag/TmsMDUmzG" class="tag">
+                    Development
                   </a>
                 
                   <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="tag">
@@ -145,15 +151,6 @@
                 
               </div>
             
-            
-              <div class="next-post">
-                <div class="next">下一篇</div>
-                <a href="https://sabrinajiang14.github.io//post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu">
-                  <h3 class="post-title">
-                    [OC] 使用客製化物件的時間屬性做排序
-                  </h3>
-                </a>
-              </div>
             
 
             
