@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574824991301">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1574838708701">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574824991301" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1574838708701" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -127,9 +127,30 @@
 <p>了解憑證之前，要先知道什麼是 <code>非對稱式加密</code>，詳情請看➡️<a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86">維基百科</a> ⬅️。</p>
 <p>看完非對稱式加密後，就可以來看看用戶版的 app 下載與驗證的過程</p>
 <h2 id="用戶版">用戶版</h2>
-<p>在每個 iOS 裝置出廠時就配置好一把 Apple 產出的 Public key，而 Private Key 就由 Apple 自己保管著。當開發者將開發好的 App 上傳到 Apple 時，Apple 就會用他的 Private Key 對 App 加密。而用戶透過 App Store 下載 App，裝置上的 Public key 就會對 App 進行驗證，若驗證成功表示這個 App 沒有修改過，<code>也就是每一個 App 都是通過 Apple 官方允許可以正常安裝在裝置上的。</code></p>
+<p>在每個 iOS 裝置出廠時就配置好一把 Apple 產出的公鑰，而私鑰就由 Apple 自己保管著。當開發者將開發好的 App 上傳到 Apple 時，Apple 就會用他的私鑰對 App 加密。而用戶透過 App Store 下載 App，裝置上的公鑰就會對 App 進行驗證，若驗證成功表示這個 App 沒有修改過，就會進行安裝。<code>也就是每一個 App 都是通過 Apple 官方允許可以正常安裝在裝置上的。</code></p>
+<hr>
 <h2 id="開發者版">開發者版</h2>
-<p>但是在開發過程中，開發者會需要不斷的除錯或是增加新功能，總不能每次開發到一個階段就要送到 App Store 下載驗證吧！</p>
+<h3 id="csr-cer">CSR / CER</h3>
+<p>但是在開發過程中，開發者會需要不斷的除錯或是增加新功能，總不能每次開發到一個階段就要送到 App Store 下載驗證吧！所以這時候就又多了一個開發者專用的流程。<br>
+Mac 系統自帶一組公鑰 &amp; 私鑰，當我們從 Keychain Access 匯出 CSR 檔時，裡面帶有開發者及公鑰等相關資訊。<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574833912000.png" alt=""><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574833745851.png" alt=""><br>
+接下來，我們需要把 CSR 上傳到 Certificates ，同時 Apple 會用私鑰對 CSR 進行加密，我們再把 .cer 檔下載回來後點擊兩下後安裝到電腦裡面。回到 Keychain Access 可以看到原本的 .cer 檔跟我們的私鑰綁再一起。</p>
+<h3 id="provisioning-profile">Provisioning Profile</h3>
+<p>當我們設定好 Identifiers &amp; Devices 來到 Provisioning Profile 這區新增一個 Profile。下載開發者設定好的 xxx.mobileprovision 檔後導出 .plist 就會看到這個檔案裡面包含了 AppIDName, TeamIdentifier, UUID, application-identifier 等資訊。<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574838160304.png" alt=""></p>
+<pre><code>AppIDName &gt; App 的名稱
+TeamIdentifier &gt; 憑證編號
+UUID &gt; 註冊的裝置
+application-identifier &gt; 這個是 app 的身份辨識碼。是憑證編號 + Bundle Indetifier
+(所以如果今天你是用企業簽的 app，發現無法覆蓋安裝時，應該就是他的憑證編號或是 Bundle Indetifier換了)
+</code></pre>
+<p>企業憑證跟個人憑證基本上沒有什麼差別，最大的差別在於 UUID， Apple 限制個人開發者最多只能有100個實體裝置，而企業憑證沒有這個限制。<br>
+所以在這個 xxx.mobileprovision 裡面看到的是 <code>ProvisionsAllDevices</code> 而非單一裝置的 uuid。</p>
+<h3 id="打包">打包</h3>
+<p>現在萬事俱備，只缺東風啦！</p>
+<p>打包時，Xocde 會拿出電腦的私鑰將 app 加密，同時將 xxx.mobileprovision 改名為embedded.mobileprovision，把 .cer &amp; embedded.mobileprovision 放到名為 Payload 的資料夾裡並包成xxx.ipa。<br>
+iPhone 在安裝 app 時會從 ipa 裡面取出 .cer 檔，透過 iPhone 裡面的公鑰進行驗證其正確性。而在透過 .cer 裡面的 CSR 檔去驗證這個App的正確性，確認無誤後再檢查 embedded.mobileprovision，確認這隻手機的 uuid 有包含在檔案裡面才能正常安裝在該裝置上。</p>
 <hr>
 <p>參考文件：<br>
 <a href="http://xelz.info/blog/2019/01/11/ios-code-signature/">深度长文：细说iOS代码签名</a> (非常推薦👍👍👍)<br>
@@ -151,6 +172,15 @@
                 
               </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io//post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
+                  <h3 class="post-title">
+                    [Test] iOS 自動化測試之好用工具 — Appium
+                  </h3>
+                </a>
+              </div>
             
 
             
