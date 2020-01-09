@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1578498849079">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1578547898197">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1578498849079" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1578547898197" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -113,11 +113,96 @@
 說是要從另外一份搬過來，皮換一換就好(更別說公司的 UI 設計的圖有多奇耙，我都不敢承認我是 app rd 了...)</p>
 <p>但是，事情從來都不是這麼簡單...</p>
 <p>看了看原本的 source code 後，雖然說換皮而已，但是基本上我覺得就是跟重寫差不多<br>
-一如往常的 MVC 架構，UI、業務邏輯、API等等，全部都在 ViewController 裡面啊!<br>
+一如往常的 MVC 架構，UI、business logic、API 等等，全部都在 ViewController 裡面啊!<br>
 說是要換皮，還真不知道要從哪邊下手。<br>
-忽然間我想起 <code>Router</code> 這個東西。<br>
-雖然很想全部重構，但是時間緊迫，而且邏輯複雜，我覺得還是先從<strong>頁面跳轉</strong>下手吧！</p>
+忽然間我想起 <code>Router</code> 這個東西，可以在幾乎不動原本架構下將<strong>頁面跳轉</strong>這件事統一到某個地方處理，也比較符合 <code>單一職責原則 Single Responsibility Principle (SRP)</code> (雖然很想全部重構...)</p>
 <h2 id="正文開始">正文開始</h2>
+<p>主要的思路會是將<strong>頁面跳轉</strong>這件事統一到一個地方處理，例如說：Router這個物件身上，<br>
+也因為他幾乎是跨頁面存在，所以我這邊會將他設計成 Singleton 物件。<br>
+一開始會先設定一個新的 root view controller，主要會是用 navigation controller ，</p>
+<pre><code>final class Router:NSObject {
+    enum RouterView : Equatable {
+        case balance
+        case message
+        case betRecord
+        case redemptionRecord
+        case myWeb
+        case myReport
+        case setting
+        case addBankCard
+        case createSpread
+    }
+
+    static let instance = Router()
+    override init() {
+        super.init()
+    }
+
+    private var rootController: UINavigationController?
+    func setRootViewController(rootController:UINavigationController) {
+        self.rootController = rootController
+    }
+}
+func show(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            let login = LoginCheckViewController() //FIXME: - need Login view
+            presentView(navi, controller: login)
+            return
+        }
+        DispatchQueue.main.async {
+            controller.hidesBottomBarWhenPushed = true
+            navi.setNavigationBarHidden(false, animated: true)
+            navi.show(controller, sender: nil)
+        }
+    }
+    
+    func present(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            let login = LoginCheckViewController() //FIXME: - need Login view
+            presentView(navi, controller: login)
+            return
+        }
+        presentView(navi, controller: controller)
+    }
+    
+    private func presentView(_ navi:UINavigationController, controller:UIViewController) {
+        DispatchQueue.main.async {
+            controller.hidesBottomBarWhenPushed = true
+            navi.present(controller, animated: true, completion: nil)
+        }
+    }
+    private func getViewController(_ view:RouterView) -&gt; UIViewController? {
+        var controller:UIViewController?
+        if checker.isNeedsLogin(accountStatus: true, toView: view) {
+            return nil
+        }
+    }
+</code></pre>
+<pre><code>class RouterCheck:NSObject {
+    
+    lazy var controllers:[Router.RouterView] = {
+        return []
+    }()
+    
+    override init() {
+        super.init()
+    }
+    
+    func isNeedsLogin(accountStatus:Bool, toView:Router.RouterView) -&gt; Bool {
+        if controllers.filter({ $0 == toView }).count &gt; 0 {
+            return true
+        }else{
+            return false
+        }
+    }
+}
+</code></pre>
 
             </div>
             

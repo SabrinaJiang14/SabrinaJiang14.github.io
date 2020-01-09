@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1578498849079">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1578547898197">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1578498849079" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1578547898197" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -119,16 +119,16 @@
 <p><code>環境：macOS Mojave(10.14.6)、Xcode 10.3</code></p>
 <h3 id="step-1">Step 1</h3>
 <p>打開 Terminal，輸入 <code>java -version</code> ，檢查是否有安裝 Java（如果沒有安裝過的，記得到 Oracle 找最新的 Java 版本安裝，點此到<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html">官網</a>）<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574749934230.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574749934230.png" alt="" loading="lazy"></p>
 <p align=center><font size=1>(圖片取自 Oracle 官網)</font></p>
 <p>如果有安裝了，應該會顯示這些訊息<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574750032945.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574750032945.png" alt="" loading="lazy"></p>
 <h3 id="step-2">Step 2</h3>
 <p>輸入 <code>git --version</code> 檢查是否有安裝 Git（如果沒有安裝過，也可以參考<a href="https://git-scm.com/book/zh-tw/v2/%E9%96%8B%E5%A7%8B-Git-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8">這篇文章</a>安裝 Git）<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574750125425.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574750125425.png" alt="" loading="lazy"></p>
 <h3 id="step-3">Step 3</h3>
 <p>輸入 <code>ruby -v</code> 檢查是否有安裝 ruby<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574750190041.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574750190041.png" alt="" loading="lazy"></p>
 <h3 id="step-4">Step 4</h3>
 <p>安裝brew，請輸入</p>
 <pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 
@@ -145,7 +145,7 @@ brew link node                              #再重下指令
 brew link — overwrite node                  #如果還是失敗，就改成這句
 </code></pre>
 <p>再打一次 <code>bash node -v</code>，如果成功應該就會顯示下面的資訊<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574750699412.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574750699412.png" alt="" loading="lazy"></p>
 <h3 id="step-7">Step 7</h3>
 <p>安裝 Appium</p>
 <pre><code>npm install -g appium   #安裝Server
@@ -155,18 +155,18 @@ npm install wd          #安裝Client
 <pre><code>npm install appium-doctor -g    #安裝檢查器
 appium-doctor                   #進行檢查
 </code></pre>
-<p><img src="https://sabrinajiang14.github.io//post-images/1574751083574.png" alt=""><br>
-<img src="https://sabrinajiang14.github.io//post-images/1574751088658.png" alt=""><br>
+<p><img src="https://sabrinajiang14.github.io//post-images/1574751083574.png" alt="" loading="lazy"><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751088658.png" alt="" loading="lazy"><br>
 檢查器會將預計會用到的全部檢查一遍，就算不是全部都過，也不用擔心。只要確定自己要測試的那個平台的相關軟體有安裝完成就可以囉。</p>
 <h3 id="step8">Step8</h3>
 <p>安裝 Appium Desktop<br>
 可以直接透過<a href="http://appium.io/">官網</a>下載或是到他們的 <a href="https://github.com/appium/appium-desktop/releases/download/v1.15.1/Appium-mac-1.15.1.dmg">Github</a> 去下載 Appium-mac-x.x.dmg（目前我看到最新版是這個，連結隨時都有可能換，還是從官網連過去最保險）</p>
 <p>以上步驟如果都完成了，就可以打開 Appium Desktop<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574751218258.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574751218258.png" alt="" loading="lazy"></p>
 <p>點選 Start Server 後會顯示另外一個畫面。<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574751250657.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574751250657.png" alt="" loading="lazy"></p>
 <p>點下右上角的搜尋圖示 — Start Inspector Session<br>
-<img src="https://sabrinajiang14.github.io//post-images/1574751270624.png" alt=""></p>
+<img src="https://sabrinajiang14.github.io//post-images/1574751270624.png" alt="" loading="lazy"></p>
 <p>在這個新的畫面上可以做一些設定，像我是要測試 iOS app。所以我就填上 platformName、platformVersion、autommationName等等相關訊息。（想知道有哪些關鍵字可以填，直接點下方的 Desired Capabilities Documentation 去查看）<br>
 完成後可以將此次的測試資料儲存起來，以期下次在使用。點選 Start Session 後就會看到模擬器被啟動囉！<br>
 （話說我還有實機的部分還沒有實作，等我實作完再上來補:P）</p>
@@ -177,11 +177,11 @@ appium-doctor                   #進行檢查
             
               <div class="tag-container">
                 
-                  <a href="https://sabrinajiang14.github.io//tag/6YUfYMEVj" class="tag">
+                  <a href="https://sabrinajiang14.github.io/tag/6YUfYMEVj" class="tag">
                     Automation Testing
                   </a>
                 
-                  <a href="https://sabrinajiang14.github.io//tag/Lhu5gv6WW" class="tag">
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW" class="tag">
                     iOS
                   </a>
                 
@@ -190,7 +190,7 @@ appium-doctor                   #進行檢查
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://sabrinajiang14.github.io//post/gong-shang-marquee-for-app">
+                <a href="https://sabrinajiang14.github.io/post/gong-shang-marquee-for-app">
                   <h3 class="post-title">
                     [工商] Marquee For App
                   </h3>
