@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2020-01-10T05:59:55.162Z</updated>
+    <updated>2020-01-10T06:02:57.273Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io/atom.xml"/>
@@ -158,9 +158,8 @@
     func setRootViewController(rootController:UINavigationController) {
         self.rootController = rootController
     }
-}
 
-func show(_ view:RouterView) {
+    func show(_ view:RouterView) {
         guard let navi = rootController else {
             fatalError(&quot;call setRootViewController(rootController:) first&quot;)
         }
@@ -210,6 +209,7 @@ func show(_ view:RouterView) {
         return controller
     }
 }
+
 
 class RouterCheck:NSObject {
     
