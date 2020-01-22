@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://sabrinajiang14.github.io/</id>
     <title>Sab.J 的碼農世界</title>
-    <updated>2020-01-22T07:45:45.868Z</updated>
+    <updated>2020-01-22T07:57:24.281Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
     <link rel="self" href="https://sabrinajiang14.github.io/atom.xml"/>
@@ -161,7 +161,7 @@ func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 </code></pre>
 <p>但是這樣一點都不直覺啊，而且其他 viewController 在用這個套件的時候一定會忘記寫這邊的程式碼。<br>
 所以我後來研究之後覺得改成另一種方式也許會好用一點。<br>
-在原本的 class 外面先定義一個 block type <code>typealias BindType = ((_ dataSources:[Any]) -&gt; Void)</code>，再定義一個 protocol 讓要用這個套件的人要去實作這個 protocol 裡的 function / proprety，</p>
+在原本的 class 外面先定義一個 block type：<code>typealias BindType = ((_ dataSources:[Any]) -&gt; Void)</code>，再定義一個 protocol 讓要用這個套件的人要去實作這個 protocol 裡的 function / proprety，</p>
 <pre><code>protocol SJTableViewAble {
     var onBind:BindType? { get set }
 }
@@ -202,8 +202,8 @@ private func initTableView() {
         api.getDatas(completed: { [unowned self] (result) in 
             // self.tableView.setupData(result)
             self.onBind?(result) //這邊改成由本身的閉包去推送資料回到 tableView 裡面，就不直接去 call tableView 的 reload
-        }) { [unowned self] (error) in 
-            self.showError(error.localizedDescription)
+        }) { (error) in 
+            // show error
         }
     }
 }
@@ -211,7 +211,132 @@ private func initTableView() {
 <hr>
 <p>以上就是把一個 TableView 做簡單的封裝，但同時也保留一些彈性讓其他的使用者改成他想要的功能。<br>
 是不是很簡單。<br>
-希望這篇文章有幫助到你喲！！</p>
+完整的程式碼請見下方區域，希望這篇文章有幫助到你喲！！</p>
+<hr>
+<p>ViewController.swift</p>
+<pre><code>class ViewController: UIViewController,SJTableViewAble {
+    var onBind: BindType?
+    private lazy var tableView:SJTableView = {
+        return SJTableView(frame: self.view.frame)
+    }()
+
+    override func viewDidLoad() {
+        tableView = tableView
+                .itemDidSelected { (index) in
+                    print(index.row)
+                }.setDelegate(self)
+        onBind = mainTableView.getBind()
+        getData()
+    }
+
+    func getData() {
+        api.getDatas(completed: { [unowned self] (result) in 
+            self.onBind?(result) 
+        }) { (error) in 
+            // show error
+        }
+    }
+}
+</code></pre>
+<p>SJTableView.swift</p>
+<pre><code>typealias BindType = ((_ dataSources:[Any]) -&gt; Void)
+
+protocol SJTableViewAble {
+    var onBind:BindType? { get set }
+}
+
+class SJTableView: UIView {
+
+    @IBOutlet weak var tableView: UITableView!
+    
+    func registerClassCell(any:[AnyClass]) -&gt; SJTableView {
+        for cell in any {
+            tableView.register(cell.self, forCellReuseIdentifier: String(describing: cell.self))
+        }
+        return self
+    }
+    
+    func registerNibCell(cellIDs:[String]) -&gt; SJTableView {
+        for cellID in cellIDs {
+            tableView.register(UINib(nibName: cellID, bundle: nil), forCellReuseIdentifier: cellID)
+        }
+        return self
+    }
+    
+    func configuratorItemCell(configureCell:@escaping ((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell? )) -&gt; SJTableView {
+        sj_configure_cell = configureCell
+        return self
+    }
+    
+    func itemDidSelected(completed:@escaping ((_ index:IndexPath) -&gt; Void)) -&gt; SJTableView {
+        sj_item_selected = completed
+        return self
+    }
+    
+    func getBind() -&gt; BindType {
+        return sj_bind_data
+    }
+
+    func setDelegate(_ mDelegate:SJTableViewAble) -&gt; SJTableView {
+        delegate = mDelegate
+        return self
+    }
+    
+    //MARK: - private objective and proprety
+    private var datas:[Any] = []
+    private var sj_item_selected:((_ index:IndexPath) -&gt; Void)?
+    private var sj_configure_cell:((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell?)?
+    private var sj_bind_data:BindType = { (_ ,_ ) in }
+    private var delegate:SJTableViewAble?
+    
+    lazy var xibView:UIView = {
+        return Bundle.main.loadNibNamed(&quot;SJTableView&quot;, owner: self, options: nil)?.first as! UIView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+    
+    private func setupView() {
+        xibView.frame = bounds
+        addSubview(xibView)
+        initTableView()
+    }
+    
+    private func initTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        sj_bind_data = { [unowned self] (dataSource) in
+            self.datas = dataSource
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension SJTableView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -&gt; Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.datas.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+        guard sj_configure_cell == nil else {
+            return (sj_configure_cell?(tableView, indexPath))!
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: &quot;CustomCellIdentifier&quot;, for: indexPath) as! CustomCell
+        return cell
+    }
+}
+</code></pre>
 ]]></content>
     </entry>
     <entry>
