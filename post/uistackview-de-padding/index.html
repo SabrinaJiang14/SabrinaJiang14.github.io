@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Automation Testing | Sab.J 的碼農世界</title>
+<title>UIStackView 的 padding | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -100,33 +100,62 @@
 
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
-          <h2 class="current-tag">标签: Automation Testing</h2>
-          
-            <article class="post-item">
-              <div class="left">
-                <a href="https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
-                  <h2 class="post-title">[Test] iOS 自動化測試之好用工具 — Appium</h2>
-                </a>
-                <div class="post-date">
-                  2019-11-25
-                </div>
-                <div class="post-abstract">
-                  
-                </div>
+          <div class="post-detail">
+            <h2 class="post-title">UIStackView 的 padding</h2>
+            <div class="post-date">2020-12-09</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/uistackview-de-padding.jpg')">
               </div>
-              
-                <a class="right" href="https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium">
-                  <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium.jpg')">
-                  </div>
-                </a>
-              
-            </article>
-          
+            
+            <div class="post-content">
+              <h1 id="padding">Padding</h1>
+<p>之前一直不知道使用 UIStackView 之後要怎麼加入左右邊的間距。<br>
+所以都是用 UIView 上再 add UIStackview ，這樣就可以設定左右邊的間距。</p>
+<p>但是今天在<strong>老司机 iOS 周报</strong>發現了 UIStackview 的 padding了＠＠<br>
+原來只要設定將 UIStackView 的 <code>isLayoutMarginsRelativeArrangement</code> 設定為 <code>True</code>，然後再使用<code>directionalLayoutMargins</code> 告訴他間距要多少 <code>NSDirectionalEdgeInsets(top:leading:bottom:trailing)</code> 。</p>
+<hr>
+<h2 id="程式碼">程式碼：</h2>
+<pre><code>stackView.isLayoutMarginsRelativeArrangement = true
+stackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 5, trailing: 5)
+</code></pre>
+<hr>
+<h2 id="storyboard">Storyboard</h2>
+<p>在 Storyboard 裡面也有地方可以直接設定，<br>
+Xcode / Size inspector / Layout margins -&gt; LanguageDirectional<br>
+<img src="https://sabrinajiang14.github.io//post-images/1607497998236.png" alt="" loading="lazy"></p>
 
-          <div class="pagination-container">
-  
-  
-</div>
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/TmsMDUmzG" class="tag">
+                    Development
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/ge2CilX0S" class="tag">
+                    Swift
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/swift-uicontrol-de-control-event-by-combine">
+                  <h3 class="post-title">
+                    [Swift] UIControl 的 Control Event by Combine
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
 
         </div>
       </div>
