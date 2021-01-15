@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1610439213787">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1610704702749">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
 <link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
 
@@ -39,7 +39,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://sabrinajiang14.github.io/">
-        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1610439213787" class="site-logo">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1610704702749" class="site-logo">
         <h1 class="site-title">Sab.J 的碼農世界</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -117,59 +117,39 @@ git checkout -B latest k0.8.8
 cd ios
 ./compile-ffmpeg.sh clean
 ./compile-ffmpeg.sh all
-
-# Demo
-#     open ios/IJKMediaDemo/IJKMediaDemo.xcodeproj with Xcode
-# 
-# Import into Your own Application
-#     Select your project in Xcode.
-#     File -&gt; Add Files to ... -&gt; Select ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj
-#     Select your Application's target.
-#     Build Phases -&gt; Target Dependencies -&gt; Select IJKMediaFramework
-#     Build Phases -&gt; Link Binary with Libraries -&gt; Add:
-#         IJKMediaFramework.framework
-#
-#         AudioToolbox.framework
-#         AVFoundation.framework
-#         CoreGraphics.framework
-#         CoreMedia.framework
-#         CoreVideo.framework
-#         libbz2.tbd
-#         libz.tbd
-#         MediaPlayer.framework
-#         MobileCoreServices.framework
-#         OpenGLES.framework
-#         QuartzCore.framework
-#         UIKit.framework
-#         VideoToolbox.framework
-#
-#         ... (Maybe something else, if you get any link error)
-# 
 </code></pre>
 <ol start="2">
-<li>會遇到armv7的錯誤，再根據<a href="https://blog.csdn.net/qiuchangyong/article/details/100781700">這篇</a>修改</li>
+<li>會遇到armv7的錯誤，再根據<a href="https://blog.csdn.net/qiuchangyong/article/details/100781700">這篇</a>修改參數 <code>--enable-pic --disable-asm</code></li>
+</ol>
+<pre><code>elif [ &quot;$FF_ARCH&quot; = &quot;armv7&quot; ]; then
+FF_BUILD_NAME=&quot;ffmpeg-armv7&quot;
+FF_BUILD_NAME_OPENSSL=openssl-armv7
+FF_XCRUN_OSVERSION=&quot;-miphoneos-version-min=6.0&quot;
+FF_XCODE_BITCODE=&quot;-fembed-bitcode&quot;
+FFMPEG_CFG_FLAGS=&quot;$FFMPEG_CFG_FLAGS --enable-pic --disable-asm&quot;
+</code></pre>
+<ol start="3">
 <li>安裝成功後，打開 <code>ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj</code>，同時在模擬器跟實機 build 一下。</li>
 <li>合併兩種 framework。</li>
-<li>把下列的lib通通拉進去。</li>
-</ol>
-<blockquote>
-<p>把Release-iphoneos/IJKMediaFramework.framework拖入项目中，导入依赖库：<br>
-AudioToolbox.framework<br>
-AVFoundation.framework<br>
-CoreGraphics.framework<br>
-CoreMedia.framework<br>
-CoreVideo.framework<br>
-libbz2.tbd<br>
-libz.tbd<br>
-MediaPlayer.framework<br>
-MobileCoreServices.framework<br>
-OpenGLES.framework<br>
-QuartzCore.framework<br>
-UIKit.framework<br>
-VideoToolbox.framework<br>
-libstdc++.6.0.9.tbd</p>
-</blockquote>
-<ol start="6">
+<li>把 <code>Release-iphoneos/IJKMediaFramework.framework</code> 拖入项目中，导入依赖库</li>
+<li>再把下面的 framework 也通通加入
+<ul>
+<li>AudioToolbox.framework</li>
+<li>AVFoundation.framework</li>
+<li>CoreGraphics.framework</li>
+<li>CoreMedia.framework</li>
+<li>CoreVideo.framework</li>
+<li>libbz2.tbd</li>
+<li>libz.tbd</li>
+<li>MediaPlayer.framework</li>
+<li>MobileCoreServices.framework</li>
+<li>OpenGLES.framework</li>
+<li>QuartzCore.framework</li>
+<li>UIKit.framework</li>
+<li>VideoToolbox.framework</li>
+<li>libstdc++.6.0.9.tbd</li>
+</ul>
+</li>
 <li>但是會找不到 <code>libstdc++.6.0.0.tbd</code>，所以就改加 <code>libc++.tbd</code></li>
 <li>完成</li>
 </ol>
