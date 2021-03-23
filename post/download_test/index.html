@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>[OC] UISearchController 的用法 | Sab.J 的碼農世界</title>
+<title>下載測試 | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -101,67 +101,25 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">[OC] UISearchController 的用法</h2>
-            <div class="post-date">2016-03-03</div>
+            <h2 class="post-title">下載測試</h2>
+            <div class="post-date">2021-03-23</div>
             
             <div class="post-content">
-              <pre><code>@interface SearchAddressController : UIViewController&lt;UISearchControllerDelegate, UISearchDisplayDelegate, UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate&gt;
-
-@property (weak, nonatomic) IBOutlet UITableView *contectTable;
-@property (nonatomic, strong) UISearchController *searchController;
-</code></pre>
-<pre><code>- (void)viewDidLoad {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchResultsUpdater = self;
-    self.searchController.dimsBackgroundDuringPresentation = NO;
-    self.searchController.searchBar.scopeButtonTitles = @[];
-    self.searchController.searchBar.delegate = self;
-    self.contectTable.tableHeaderView = self.searchController.searchBar;
-    [self.searchController.searchBar sizeToFit];
-    self.definesPresentationContext = YES;
-}
-
-#pragma mark - UISearchController delegate
-- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
-{
-    NSString *searchString = searchController.searchBar.text;
-    if (searchString.length != 0) {
-        shouldShowSearchResults = true;
-        NSPredicate *resultPredicate = [NSPredicate predicateWithFormat:@&quot;self CONTAINS[c] %@&quot;, searchString];
-        searchResultArray = [addressArray filteredArrayUsingPredicate:resultPredicate];
-        [self.contectTable reloadData];
-    }else{
-        shouldShowSearchResults = false;
-        [self.contectTable reloadData];
-    }
-}
-
-- (void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
-{
-    [self updateSearchResultsForSearchController:self.searchController];
-}
-</code></pre>
+              <ul>
+<li><img src="file:///Users/sabrina/Documents/Gridea/download/manifest.plist" alt="plist" loading="lazy"></li>
+<li><img src="file:///Users/sabrina/Documents/Gridea/download/testDemo.ipa" alt="ipa" loading="lazy"></li>
+<li><img src="https://sabrinajiang14.github.io//post-images/image.57x57.png" alt="image57" loading="lazy"></li>
+<li><img src="https://sabrinajiang14.github.io//post-images/image.512x512.png" alt="image512" loading="lazy"></li>
+</ul>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://sabrinajiang14.github.io/tag/XOV5UtTMI" class="tag">
-                    Objective-C
-                  </a>
-                
-                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW" class="tag">
-                    iOS
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://sabrinajiang14.github.io/post/oc-uicoloruiimage-hu-zhuan">
+                <a href="https://sabrinajiang14.github.io/post/install-ijkplayer">
                   <h3 class="post-title">
-                    [OC] UIColor，UIImage 互轉
+                    安裝 ijkplayer
                   </h3>
                 </a>
               </div>
