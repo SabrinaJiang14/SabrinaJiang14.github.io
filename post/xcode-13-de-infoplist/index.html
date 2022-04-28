@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>[OC] 使用客製化物件的時間屬性做排序 | Sab.J 的碼農世界</title>
+<title>XCode 13 的 info.plist | Sab.J 的碼農世界</title>
 <meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -101,52 +101,31 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">[OC] 使用客製化物件的時間屬性做排序</h2>
-            <div class="post-date">2015-09-02</div>
-            
-              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu.jpg')">
-              </div>
+            <h2 class="post-title">XCode 13 的 info.plist</h2>
+            <div class="post-date">2022-04-28</div>
             
             <div class="post-content">
-              <p>這幾天要做一個物件的排序，結果發現 OC 的排序只能針對基本型別做排序，<br>
-如果我的 array 是放 customer object 就必須要另外實作。<br>
-這實在讓我太苦惱了啊~~~</p>
-<pre><code>NSArray *arrRestaurantQueue = [[dicResult objectForKey:@&quot;RestaurantRsv&quot;] sortedArrayUsingComparator:^NSComparisonResult(QDReservation *obj1, QDReservation *obj2) {
-  NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-  [dateFormatter setDateFormat:@&quot;yyyy-MM-dd HH:mm&quot;];
-  NSDate *date1 = [dateFormatter dateFromString:obj1.rsvTime];
-  NSDate *date2 = [dateFormatter dateFromString:obj2.rsvTime];
-                
-  if ([date1 compare:date2] == NSOrderedDescending) {
-    return (NSComparisonResult)NSOrderedDescending;
-  } else if ([date1 compare:date2] == NSOrderedAscending) {
-    return (NSComparisonResult)NSOrderedAscending;
-  } else {
-    return (NSComparisonResult)NSOrderedSame;
-  }
-}];
-</code></pre>
+              <p>最近升級到 XCode 13，在開發就專案的時候都沒有什麼太大的問題。<br>
+但是開一個新專案時發現，原本寫在 Build Phases 裡面增加 Build number 的 script 會失效。<br>
+一直跳出 CFBundleVersion not find 的錯誤。</p>
+<p>經過一番查找之後才知道原來這是 XCode 13 的特有行為。<br>
+因此要到 BuildSetting / Generate Info.plist File 裡面去改成 NO，<br>
+<img src="https://sabrinajiang14.github.io//post-images/1651119350454.png" alt="" loading="lazy"><br>
+＊記得要先把原本的 info / Custom iOS Target Properites 的資料複製一份到 info.plist 裡面唷。</p>
+<hr>
+<h2 id="參考資料">參考資料</h2>
+<ul>
+<li>https://mp.weixin.qq.com/s/mgGjBb9dt714c117xrYGfQ</li>
+</ul>
 
             </div>
-            
-              <div class="tag-container">
-                
-                  <a href="https://sabrinajiang14.github.io/tag/XOV5UtTMI/" class="tag">
-                    Objective-C
-                  </a>
-                
-                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
-                    iOS
-                  </a>
-                
-              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="https://sabrinajiang14.github.io/post/oc-bi-jiao-liang-shi-jian-chai/">
+                <a href="https://sabrinajiang14.github.io/post/install-ijkplayer/">
                   <h3 class="post-title">
-                    [OC] 比較兩個時間差
+                    安裝 ijkplayer
                   </h3>
                 </a>
               </div>
