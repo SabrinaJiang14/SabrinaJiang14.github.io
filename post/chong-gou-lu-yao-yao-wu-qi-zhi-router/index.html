@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Swift] 重構路遙遙無期之Router | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Swift] 重構路遙遙無期之Router</h2>
+            <div class="post-date">2019-12-18</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/chong-gou-lu-yao-yao-wu-qi-zhi-router.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>最近公司給了一個新項目，說是要在過年前完成(又是一個不可能的任務...)<br>
+說是要從另外一份搬過來，皮換一換就好(更別說公司的 UI 設計的圖有多奇耙，我都不敢承認我是 app rd 了...)</p>
+<p>但是，事情從來都不是這麼簡單...</p>
+<p>看了看原本的 source code 後，雖然說換皮而已，但是基本上我覺得就是跟重寫差不多<br>
+一如往常的 MVC 架構，UI、business logic、API 等等，全部都在 ViewController 裡面啊!<br>
+說是要換皮，還真不知道要從哪邊下手。<br>
+忽然間我想起 <code>Router</code> 這個東西，可以在幾乎不動原本架構下將<strong>頁面跳轉</strong>這件事統一到某個地方處理，也比較符合 <code>單一職責原則 Single Responsibility Principle (SRP)</code> (雖然很想全部重構...)</p>
+<hr>
+<h2 id="正文開始">正文開始</h2>
+<h3 id="router">Router</h3>
+<p>主要的思路會是將<strong>頁面跳轉</strong>這件事統一到一個地方處理，例如說：Router這個物件身上，<br>
+也因為他幾乎是跨頁面存在，所以我這邊會將他設計成 Singleton 物件。<br>
+也會在一開始設定一個新的 root view controller (navigation controller) ，去貫穿整個App的走向。</p>
+<pre><code>final class Router:NSObject {
+    static let instance = Router()
+    override init() {
+        super.init()
+    }
+
+    private var rootController: UINavigationController?
+    func setRootViewController(rootController:UINavigationController) {
+        self.rootController = rootController
+    }
+}
+</code></pre>
+<p>一個簡單的 Router 雛形就出來了。<br>
+接下來我會加入一個 enum，這個 enum 裡面有包含所有的 ViewController 的 case，另外會有一個 getViewController 的 function 去將這個 ViewController 的實體回傳。</p>
+<pre><code>enum RouterView : Equatable {
+        case home
+        case login
+        case register
+        case member
+        case updatePwd
+        .
+        .
+        .
+}
+</code></pre>
+<pre><code>private func getViewController(_ view:RouterView) -&gt; UIViewController? {
+        var controller:UIViewController?
+        switch view {
+            case .home:
+                let storyboard = UIStoryboard(name: &quot;Home&quot;, bundle: nil)
+                let vc = storyboard.instantiateViewController(identifier: &quot;HomeViewController&quot;) as! HomeViewController
+                controller = vc
+            ...
+        }
+        return controller
+}
+</code></pre>
+<p>通常頁面跳轉會有幾個方式：<code>PUSH &amp; PRESENT</code> ，所以我們就要在 Router 裡面實作如何跳轉頁面的功能。</p>
+<pre><code>func show(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            return
+        }
+        DispatchQueue.main.async {
+            controller.hidesBottomBarWhenPushed = true
+            navi.setNavigationBarHidden(false, animated: true)
+            navi.show(controller, sender: nil)
+        }
+    }
+    
+    func present(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            return
+        }
+        presentView(navi, controller: controller)
+    }
+</code></pre>
+<p>到這邊為止就把一個基本的 Router 的架構建好，以後如果要新增轉跳的頁面時，就到這個地方加上新的 enum 跟實體的 ViewController。<br>
+而且原本的 ViewController 也只要一句話就完成了，是不是超棒der ~</p>
+<pre><code>Rounter.instance.show(.home)
+</code></pre>
+<p>或是</p>
+<pre><code>Router.instance.present(.updatePwd)
+</code></pre>
+<hr>
+<h3 id="routercheck">RouterCheck</h3>
+<p>到這邊，你搞不好會問，這個 Router 只做這樣的功能，感覺沒有很吸引其他工程師做這些改變。<br>
+如果是我，我也覺得誘因不大。</p>
+<p>但是，我覺得最最重要的是接下來要講的這個東西。</p>
+<p>每個 app rd 一定會碰到一個流程就是：當使用者點選某幾個頁面時，要檢查是不是登入狀態，如果沒有就要跳出登入的畫面做登入。</p>
+<p>那原本的作法就會是在每個 ViewController 要去轉跳前檢查是不是登入狀態。<br>
+那如果有15個地方要檢查就要寫15次，如果有200個地方就要寫200次... (我的人生很寶貴，不想浪費時間在這上面)<br>
+而且如果檢查的邏輯有改變呢 ？？？</p>
+<p>所以在這個 Router 裡面，我多加了一個 Check 的 function，把檢查的邏輯統一到這裡面，<br>
+以後邏輯有改也只要到這裡面改就可以囉~~</p>
+<pre><code>class RouterCheck:NSObject {
+    
+    lazy var controllers:[Router.RouterView] = {
+        return [.member, .updatePwd]
+    }()
+    
+    override init() {
+        super.init()
+    }
+    
+    func isNeedsLogin(accountStatus:Bool, toView:Router.RouterView) -&gt; Bool {
+        if controllers.filter({ $0 == toView }).count &gt; 0 &amp;&amp; accountStatus != true {
+            return true
+        } else {
+            return false
+        }
+    }
+}
+</code></pre>
+<p>在 getViewcontroller() 裡面加入這個檢查</p>
+<pre><code>if checker.isNeedsLogin(accountStatus: ... , toView: view) {
+    return nil
+}
+</code></pre>
+<p>到這邊就完成了 Router 的實作以及不破壞現有架構進行的重構。<br>
+我個人覺得 Router 的好處就是跳轉頁面跟跳轉頁面檢查可以統一在一個地方處理就好，不用撒的到處都是囉。</p>
+<p>完整的 code 請看下方。<br>
+希望這篇對大家有幫助 ^^</p>
+<pre><code>final class Router:NSObject {
+    enum RouterView : Equatable {
+        case home
+        case login
+        case register
+        case member
+        case updatePwd
+        .
+        .
+        .
+    }
+
+    static let instance = Router()
+    override init() {
+        super.init()
+    }
+
+    private var rootController: UINavigationController?
+    func setRootViewController(rootController:UINavigationController) {
+        self.rootController = rootController
+    }
+
+    func show(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            let login = LoginCheckViewController() 
+            presentView(navi, controller: login)
+            return
+        }
+        DispatchQueue.main.async {
+            controller.hidesBottomBarWhenPushed = true
+            navi.setNavigationBarHidden(false, animated: true)
+            navi.show(controller, sender: nil)
+        }
+    }
+    
+    func present(_ view:RouterView) {
+        guard let navi = rootController else {
+            fatalError(&quot;call setRootViewController(rootController:) first&quot;)
+        }
+        guard let controller:UIViewController = getViewController(view) else {
+            let login = LoginCheckViewController() 
+            presentView(navi, controller: login)
+            return
+        }
+        presentView(navi, controller: controller)
+    }
+    
+    private func presentView(_ navi:UINavigationController, controller:UIViewController) {
+        DispatchQueue.main.async {
+            controller.hidesBottomBarWhenPushed = true
+            navi.present(controller, animated: true, completion: nil)
+        }
+    }
+
+    private func getViewController(_ view:RouterView) -&gt; UIViewController? {
+        var controller:UIViewController?
+        if checker.isNeedsLogin(accountStatus: ... , toView: view) {
+            return nil
+        }
+        switch view {
+            case .home:
+                let storyboard = UIStoryboard(name: &quot;Home&quot;, bundle: nil)
+                let vc = storyboard.instantiateViewController(identifier: &quot;HomeViewController&quot;) as! HomeViewController
+                controller = vc
+            ...
+        }
+        return controller
+    }
+}
+
+
+class RouterCheck:NSObject {
+    
+    lazy var controllers:[Router.RouterView] = {
+        return [.member, .updatePwd]
+    }()
+    
+    override init() {
+        super.init()
+    }
+    
+    func isNeedsLogin(accountStatus:Bool, toView:Router.RouterView) -&gt; Bool {
+        if controllers.filter({ $0 == toView }).count &gt; 0 &amp;&amp; accountStatus != true {
+            return true
+        }else{
+            return false
+        }
+    }
+}
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/XhdzGahLw/" class="tag">
+                    Refactoring
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/ge2CilX0S/" class="tag">
+                    Swift
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/ios-ping-zheng-de-lai-long-qu-mo/">
+                  <h3 class="post-title">
+                    [iOS] 憑證的來龍去脈
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[iOS] 憑證的來龍去脈 | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[iOS] 憑證的來龍去脈</h2>
+            <div class="post-date">2019-11-26</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-ping-zheng-de-lai-long-qu-mo.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>說到這個憑證，一直以來都是我很頭大的一個項目。只知道要從電腦裡面匯出 CSR，然後下載 .cer 檔案，還要下載 provision profile 等。就是一些很不直覺的動作。</p>
+<p>後來不知道 Xcode 第幾版後開始支援 <strong>Automatically manage signing</strong><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574761850597.png" alt="" loading="lazy"></p>
+<p>開心到睡不著啦😆😆😆，只要一勾起來就什麼煩惱都沒有了啊！！當下覺得這真的是這世界上最偉大的發明了啊～～～</p>
+<p><strong>But, 就是這個 But</strong>...<br>
+就在某一次的面試當中被洗臉之後，我發現還是不能這樣得過且過，還是要認真把憑證搞清楚...</p>
+<hr>
+<p>了解憑證之前，要先知道什麼是 <code>非對稱式加密</code>，詳情請看➡️<a href="https://zh.wikipedia.org/wiki/%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86">維基百科</a> ⬅️。</p>
+<p>看完非對稱式加密後，就可以來看看用戶版的 app 下載與驗證的過程</p>
+<h2 id="用戶版">用戶版</h2>
+<p>在每個 iOS 裝置出廠時就配置好一把 Apple 產出的公鑰，而私鑰就由 Apple 自己保管著。當開發者將開發好的 App 上傳到 Apple 時，Apple 就會用他的私鑰對 App 加密。而用戶透過 App Store 下載 App，裝置上的公鑰就會對 App 進行驗證，若驗證成功表示這個 App 沒有修改過，就會進行安裝。<code> 也就是每一個 App 都是通過 Apple 官方允許可以正常安裝在裝置上的。</code></p>
+<hr>
+<h2 id="開發者版">開發者版</h2>
+<h3 id="csr-cer">CSR / CER</h3>
+<p>但是在開發過程中，開發者會需要不斷的除錯或是增加新功能，總不能每次開發到一個階段就要送到 App Store 下載驗證吧！所以這時候就又多了一個開發者專用的流程。<br>
+Mac 系統自帶一組公鑰 &amp; 私鑰，當我們從 Keychain Access 匯出 CSR 檔時，裡面帶有開發者及公鑰等相關資訊。<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574833912000.png" alt="" loading="lazy"><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574833745851.png" alt="" loading="lazy"><br>
+接下來，我們需要把 CSR 上傳到 Certificates ，同時 Apple 會用私鑰對 CSR 進行加密，我們再把 .cer 檔下載回來後點擊兩下後安裝到電腦裡面。回到 Keychain Access 可以看到原本的 .cer 檔跟我們的私鑰綁再一起。</p>
+<h3 id="provisioning-profile">Provisioning Profile</h3>
+<p>當我們設定好 Identifiers &amp; Devices 來到 Provisioning Profile 這區新增一個 Profile。下載開發者設定好的 xxx.mobileprovision 檔後導出 .plist 就會看到這個檔案裡面包含了 AppIDName, TeamIdentifier, UUID, application-identifier 等資訊。</p>
+<pre><code>security cms -D -i your provisioning name.mobileprovision -o provision.plist
+</code></pre>
+<figure data-type="image" tabindex="1"><img src="https://sabrinajiang14.github.io//post-images/1574838160304.png" alt="" loading="lazy"></figure>
+<pre><code>AppIDName &gt; App 的名稱
+TeamIdentifier &gt; 憑證編號
+UUID &gt; 註冊的裝置
+application-identifier &gt; 這個是 app 的身份辨識碼。是憑證編號 + Bundle Indetifier
+(所以如果今天你是用企業簽的 app，發現無法覆蓋安裝時，應該就是他的憑證編號或是 Bundle Indetifier換了)
+</code></pre>
+<p>企業憑證跟個人憑證基本上沒有什麼差別，最大的差別在於 UUID， Apple 限制個人開發者最多只能有100個實體裝置，而企業憑證沒有這個限制。<br>
+所以在這個 xxx.mobileprovision 裡面看到的是 <code> ProvisionsAllDevices</code> 而非單一裝置的 uuid。</p>
+<h3 id="打包">打包</h3>
+<p>現在萬事俱備，只缺東風啦！</p>
+<p>打包時，Xocde 會拿出電腦的私鑰將 app 加密，同時將 xxx.mobileprovision 改名為embedded.mobileprovision，把 .cer &amp; embedded.mobileprovision 放到名為 Payload 的資料夾裡並包成xxx.ipa。<br>
+iPhone 在安裝 app 時會從 ipa 裡面取出 .cer 檔，透過 iPhone 裡面的公鑰進行驗證其正確性。而在透過 .cer 裡面的 CSR 檔去驗證這個App的正確性，確認無誤後再檢查 embedded.mobileprovision，確認這隻手機的 uuid 有包含在檔案裡面才能正常安裝在該裝置上。</p>
+<hr>
+<p>參考文件：<br>
+<a href="http://xelz.info/blog/2019/01/11/ios-code-signature/">深度长文：细说iOS代码签名</a> (非常推薦👍👍👍)<br>
+<a href="https://juejin.im/post/5dac01e6f265da5b64649e6b">iOS 应用签名原理及重签技术</a><br>
+<a href="https://www.jianshu.com/p/4f6245fa2e3c">iOS-签名机制和证书原理</a><br>
+<a href="http://blog.cnbang.net/tech/3386/">iOS App 签名的原理</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/TmsMDUmzG/" class="tag">
+                    Development
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium/">
+                  <h3 class="post-title">
+                    [Test] iOS 自動化測試之好用工具 — Appium
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>安裝 ijkplayer | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">安裝 ijkplayer</h2>
+            <div class="post-date">2021-01-12</div>
+            
+            <div class="post-content">
+              <ol>
+<li><a href="https://github.com/bilibili/ijkplayer">安裝</a></li>
+</ol>
+<pre><code class="language-ruby">git clone https://github.com/Bilibili/ijkplayer.git ijkplayer-ios
+cd ijkplayer-ios
+git checkout -B latest k0.8.8
+
+./init-ios.sh
+
+cd ios
+./compile-ffmpeg.sh clean
+./compile-ffmpeg.sh all
+</code></pre>
+<ol start="2">
+<li>會遇到armv7的錯誤，再根據<a href="https://blog.csdn.net/qiuchangyong/article/details/100781700">這篇</a>修改參數 <code>--enable-pic --disable-asm</code></li>
+</ol>
+<pre><code>elif [ &quot;$FF_ARCH&quot; = &quot;armv7&quot; ]; then
+FF_BUILD_NAME=&quot;ffmpeg-armv7&quot;
+FF_BUILD_NAME_OPENSSL=openssl-armv7
+FF_XCRUN_OSVERSION=&quot;-miphoneos-version-min=6.0&quot;
+FF_XCODE_BITCODE=&quot;-fembed-bitcode&quot;
+FFMPEG_CFG_FLAGS=&quot;$FFMPEG_CFG_FLAGS --enable-pic --disable-asm&quot;
+</code></pre>
+<ol start="3">
+<li>安裝成功後，打開 <code>ios/IJKMediaPlayer/IJKMediaPlayer.xcodeproj</code>，同時在模擬器跟實機 build 一下。</li>
+<li>合併兩種 framework。</li>
+<li>把 <code> Release-iphoneos/IJKMediaFramework.framework</code> 拖入项目中，导入依赖库</li>
+<li>再把下面的 framework 也通通加入
+<ul>
+<li>AudioToolbox.framework</li>
+<li>AVFoundation.framework</li>
+<li>CoreGraphics.framework</li>
+<li>CoreMedia.framework</li>
+<li>CoreVideo.framework</li>
+<li>libbz2.tbd</li>
+<li>libz.tbd</li>
+<li>MediaPlayer.framework</li>
+<li>MobileCoreServices.framework</li>
+<li>OpenGLES.framework</li>
+<li>QuartzCore.framework</li>
+<li>UIKit.framework</li>
+<li>VideoToolbox.framework</li>
+<li>libstdc++.6.0.9.tbd</li>
+</ul>
+</li>
+<li>但是會找不到 <code>libstdc++.6.0.0.tbd</code>，所以就改加 <code>libc++.tbd</code></li>
+<li>完成</li>
+</ol>
+<hr>
+<p>參考</p>
+<ol>
+<li>https://www.hangge.com/blog/cache/detail_1326.html</li>
+<li>https://www.hangge.com/blog/cache/detail_1327.html</li>
+</ol>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/uistackview-de-padding/">
+                  <h3 class="post-title">
+                    [Swift] UIStackView 的 padding
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

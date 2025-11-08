@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Test] iOS 自動化測試之好用工具 — Appium | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Test] iOS 自動化測試之好用工具 — Appium</h2>
+            <div class="post-date">2019-11-25</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id=""></h2>
+<p>第一次聽到 Appium 這個詞是在 2016 年的時候，當下覺得這東西真好玩，馬上就想試試。但是我光是第一步安裝就被難倒，只好默默把這個關鍵字收藏起來，等到某一天有閒暇時再來研究。</p>
+<p>事隔三年多，最近比較有點空閒了。又忽然想到這東西。想說是該來研究一下了。不過在安裝過程還是遇到一些坑，還是順手把它記下，以備不時之需。</p>
+<hr>
+<h2 id="appium-安裝簡介">Appium 安裝簡介</h2>
+<blockquote>
+<p>注意：以下的每個步驟卻一不可唷！</p>
+</blockquote>
+<p><code> 環境：macOS Mojave(10.14.6)、Xcode 10.3</code></p>
+<h3 id="step-1">Step 1</h3>
+<p>打開 Terminal，輸入 <code>java -version</code> ，檢查是否有安裝 Java（如果沒有安裝過的，記得到 Oracle 找最新的 Java 版本安裝，點此到<a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk13-downloads-5672538.html">官網</a>）<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574749934230.png" alt="" loading="lazy"></p>
+<p align=center><font size=1>(圖片取自 Oracle 官網)</font></p>
+<p>如果有安裝了，應該會顯示這些訊息<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750032945.png" alt="" loading="lazy"></p>
+<h3 id="step-2">Step 2</h3>
+<p>輸入 <code>git --version</code> 檢查是否有安裝 Git（如果沒有安裝過，也可以參考<a href="https://git-scm.com/book/zh-tw/v2/%E9%96%8B%E5%A7%8B-Git-%E5%AE%89%E8%A3%9D%E6%95%99%E5%AD%B8">這篇文章</a>安裝 Git）<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750125425.png" alt="" loading="lazy"></p>
+<h3 id="step-3">Step 3</h3>
+<p>輸入 <code>ruby -v</code> 檢查是否有安裝 ruby<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750190041.png" alt="" loading="lazy"></p>
+<h3 id="step-4">Step 4</h3>
+<p>安裝brew，請輸入</p>
+<pre><code>ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot; 
+</code></pre>
+<h3 id="step-5">Step 5</h3>
+<p>安裝 Xcode ，畢竟 Appium 還是在 Xcode 的基礎上做測試，所以還是要安裝。</p>
+<h3 id="step-6">Step 6</h3>
+<p>安裝 node，請輸入 <code>brew install node</code><br>
+但是在這一步一直失敗，訊息提示寫入失敗或是找不到這個資料夾。查了很多資料之後，發現應該是權限有問題，所以我先做以下步驟：</p>
+<pre><code>brew uninstall node                         #移除 node
+sudo chown -R $(whoami) $(brew — prefix)/*  #權限重新設定
+brew install node                           #重新安裝 node
+brew link node                              #再重下指令
+brew link — overwrite node                  #如果還是失敗，就改成這句
+</code></pre>
+<p>再打一次 <code>bash node -v</code>，如果成功應該就會顯示下面的資訊<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574750699412.png" alt="" loading="lazy"></p>
+<h3 id="step-7">Step 7</h3>
+<p>安裝 Appium</p>
+<pre><code>npm install -g appium   #安裝Server
+npm install wd          #安裝Client
+</code></pre>
+<p>另外，也可以裝個檢查器，檢查 Appium 是否安裝完成。</p>
+<pre><code>npm install appium-doctor -g    #安裝檢查器
+appium-doctor                   #進行檢查
+</code></pre>
+<p><img src="https://sabrinajiang14.github.io//post-images/1574751083574.png" alt="" loading="lazy"><br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751088658.png" alt="" loading="lazy"><br>
+檢查器會將預計會用到的全部檢查一遍，就算不是全部都過，也不用擔心。只要確定自己要測試的那個平台的相關軟體有安裝完成就可以囉。</p>
+<h3 id="step8">Step8</h3>
+<p>安裝 Appium Desktop<br>
+可以直接透過<a href="http://appium.io/">官網</a>下載或是到他們的 <a href="https://github.com/appium/appium-desktop/releases/download/v1.15.1/Appium-mac-1.15.1.dmg">Github</a> 去下載 Appium-mac-x.x.dmg（目前我看到最新版是這個，連結隨時都有可能換，還是從官網連過去最保險）</p>
+<p>以上步驟如果都完成了，就可以打開 Appium Desktop<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751218258.png" alt="" loading="lazy"></p>
+<p>點選 Start Server 後會顯示另外一個畫面。<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751250657.png" alt="" loading="lazy"></p>
+<p>點下右上角的搜尋圖示 — Start Inspector Session<br>
+<img src="https://sabrinajiang14.github.io//post-images/1574751270624.png" alt="" loading="lazy"></p>
+<p>在這個新的畫面上可以做一些設定，像我是要測試 iOS app。所以我就填上 platformName、platformVersion、autommationName等等相關訊息。（想知道有哪些關鍵字可以填，直接點下方的 Desired Capabilities Documentation 去查看）<br>
+完成後可以將此次的測試資料儲存起來，以期下次在使用。點選 Start Session 後就會看到模擬器被啟動囉！<br>
+（話說我還有實機的部分還沒有實作，等我實作完再上來補:P）</p>
+<hr>
+<p>今天這篇文章沒有寫的很專業，只能說是簡單的入門篇而已，希望有幫助到想要入門的朋友唷！</p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/6YUfYMEVj/" class="tag">
+                    Automation Testing
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/gong-shang-marquee-for-app/">
+                  <h3 class="post-title">
+                    [工商] Marquee For App
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[OC] UITextField 的使用方式 | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[OC] UITextField 的使用方式</h2>
+            <div class="post-date">2015-03-24</div>
+            
+            <div class="post-content">
+              <p>最近在寫 UITextFiled 的時候發現它有很多 delegate method 可以使用，筆記一下：</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+@interface ViewController : UIViewController&lt;UITextFieldDelegate&gt;//TextField的協定
+
+@end
+</code></pre>
+<pre><code>#import &quot;ViewController.h&quot;
+
+@interface ViewController () {
+    UITextField *your_textfield_1;
+    UITextField *your_textfield_2;
+}
+
+@end
+
+@implementation ViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    //設置一個普通的UITextField
+    your_textfield_1 = [[UITextField alloc]initWithFrame:CGRectMake(20, 40, 250, 40)];//初始化TextField的物件並設置位置與大小
+    your_textfield_1.delegate = self;//設定給代理才可使用協定
+    your_textfield_1.borderStyle = UITextBorderStyleLine;//設定樣式
+    
+    /*
+     UITextBorderStyleNone無樣式
+     UITextBorderStyleLine黑色格線
+     UITextBorderStyleBezel灰色格線
+     UITextBorderStyleRoundedRect普通圓角框
+     */
+    
+    your_textfield_1.font = [UIFont fontWithName:@&quot;Arial&quot; size:20.0f];//字體的大小以及字型
+    your_textfield_1.textColor = [UIColor blueColor];//字體顏色
+    your_textfield_1.backgroundColor = [UIColor yellowColor];//背景顏色
+    your_textfield_1.placeholder = @&quot;普通的TextField&quot;;//設置提示的字
+    your_textfield_1.autocorrectionType = UITextAutocorrectionTypeNo;//是不是要訂正輸入的字
+    
+    /*
+     UITextAutocorrectionTypeDefault,默認
+     UITextAutocorrectionTypeNo,不自動出現訂正的字
+     UITextAutocorrectionTypeYes,自動出現訂正的字
+     */
+    
+    your_textfield_1.textAlignment = NSTextAlignmentLeft;//水平對齊方式
+    your_textfield_1.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;//垂直對齊方式
+    your_textfield_1.clearButtonMode = UITextFieldViewModeUnlessEditing;//設定&quot;刪除內文&quot;的按鈕選項
+    
+    /*
+     UITextFieldViewModeNever,設定不會出現
+     UITextFieldViewModeWhileEditing,編輯時才出現
+     UITextFieldViewModeUnlessEditing,編輯時不出現
+     UITextFieldViewModeAlways總是出現
+     */
+    
+    your_textfield_1.secureTextEntry = NO;//將輸入的內文設置&quot;*&quot;
+    your_textfield_1.clearsOnBeginEditing = NO;//再次編輯的時候將內容直接清除
+    your_textfield_1.keyboardType = UIKeyboardTypeDefault;//鍵盤的樣式
+    
+    /*
+     UIKeyboardTypeDefault,普通鍵盤樣式
+     UIKeyboardTypeASCIICapable,支持ASCII的鍵盤樣式
+     UIKeyboardTypeNumbersAndPunctuation,數字鍵盤有支持＋＊＃等字
+     UIKeyboardTypeURL,輸入網址時方便的鍵盤
+     UIKeyboardTypeNumberPad,數字鍵盤
+     UIKeyboardTypePhonePad,電話鍵盤
+     UIKeyboardTypeNamePhonePad,電話鍵盤可切換至英文
+     UIKeyboardTypeEmailAddress,用於輸入電子郵件的鍵盤
+     UIKeyboardTypeDecimalPad,小數點以及數字鍵盤
+     UIKeyboardTypeTwitter, 優化的鍵盤，方便输入@、#字符
+     */
+    
+    your_textfield_1.autocapitalizationType = UITextAutocapitalizationTypeNone;//字母是否大寫
+    
+    /*
+     UITextAutocapitalizationTypeNone,不自動大寫
+     UITextAutocapitalizationTypeWords,單字的首字大寫
+     UITextAutocapitalizationTypeSentences,句字的首字大寫
+     UITextAutocapitalizationTypeAllCharacters,所有字母大寫
+     */
+    
+    your_textfield_1.returnKeyType =UIReturnKeyDefault;//return键樣式
+    
+    /*
+     UIReturnKeyDefault,有Return字符的鍵
+     UIReturnKeyDone.有Done字符的藍色按钮
+     UIReturnKeyGo,有GO字符的藍色按钮
+     UIReturnKeyGoogle,有Google字符的藍色按钮
+     UIReturnKeyJoin,有Join字符的藍色按钮
+     UIReturnKeyNext,有Next的藍色按钮
+     UIReturnKeyRoute,有Route的藍色按钮
+     UIReturnKeySearch,有Search的藍色按钮
+     UIReturnKeySend,有Send的藍色按钮
+     UIReturnKeyYahoo,有Yahoo的藍色按钮
+     UIReturnKeyEmergencyCall,緊急呼叫按钮
+     */
+    
+    your_textfield_1.keyboardAppearance=UIKeyboardAppearanceAlert;//鍵盤外觀
+    
+    /*
+     UIKeyboardAppearanceDefault，淺灰色
+     UIKeyboardAppearanceAlert，石墨色
+     */
+    
+    [self.view addSubview:your_textfield_1];//加入至view中
+    
+    
+    //設置有圖片背景以及內文圖的UITextField
+    your_textfield_2 = [[UITextField alloc]initWithFrame:CGRectMake(20, 100, 250, 40)];//初始化TextField的物件並設置位置與大小
+    your_textfield_2.delegate=self;//設定給代理才可使用協定
+    your_textfield_2.borderStyle = UITextBorderStyleNone;//設定UITextBorderStyleNone樣式自由度更高
+    your_textfield_2.font = [UIFont fontWithName:@&quot;Arial&quot; size:20.0f];//字體的大小以及字型
+    your_textfield_2.placeholder = @&quot;有圖片的的TextField&quot;;//設置提示的字
+    your_textfield_2.textAlignment = NSTextAlignmentLeft;//水平對齊方式
+    your_textfield_2.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;//垂直對齊方式
+    
+    UIImageView *image=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@&quot;title.png&quot;]];//初始化UIImageView的物件，並設置圖片
+    your_textfield_2.leftView=image;//設定圖片在左邊，也可設置右邊
+    your_textfield_2.leftViewMode = UITextFieldViewModeAlways;//圖片出現的時機
+    
+    /*
+     UITextFieldViewModeNever,設定不會出現
+     UITextFieldViewModeWhileEditing編輯狀態才出現
+     UITextFieldViewModeUnlessEditing編輯狀態不出現
+     UITextFieldViewModeAlways總是出現
+     */
+    
+    your_textfield_2.background=[UIImage imageNamed:@&quot;back.png&quot;];
+    [self.view addSubview:your_textfield_2];//加入至view中
+}
+
+//協定裡的動作設定以及觸發方式
+//開始編輯的時候會觸發，可設定一些動作在此
+- (void)textFieldDidBeginEditing:(UITextField *)textField{
+    
+    NSLog(@&quot;start&quot;);
+    
+}
+
+//按下&quot;clearButtonMode&quot;的按鈕會觸發
+- (BOOL)textFieldShouldClear:(UITextField *)textField{
+    
+    NSLog(@&quot;clear&quot;);
+    
+    return YES;
+    
+}
+
+//結束編輯時會觸發，傳回BOOL值，可在編輯模式中確定是否要離開編輯模式
+- (BOOL)textFieldShouldEndEditing:(UITextField *)textField{
+    
+    NSLog(@&quot;over&quot;);
+    return YES;//return NO 就會一直在編輯模式
+    
+}
+
+//按下Return鍵的反應
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    
+    //縮起鍵盤
+    [textField resignFirstResponder];
+    return YES;
+    
+}
+
+//傳回BOOL值，指定是否循序內文字段編輯
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    return YES;
+}
+
+//限制使用者只能輸入的字串
+
+-(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
+    
+    NSCharacterSet *cs = [[NSCharacterSet characterSetWithCharactersInString:kAlphaNum]invertedSet];//kAlphaNum要先定義才能使用，限定可出現的字符
+    
+    NSString *filtered = [[string componentsSeparatedByCharactersInSet:cs]componentsJoinedByString:@&quot;=&quot;];//不再限定範圍內又可以出現的字符
+    
+    BOOL canChange = [string isEqualToString:filtered];
+    return canChange;
+    
+}
+
+//限制使用者能輸入的總數
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    //可限定哪些字元可超過 return YES 就是可以輸入文字
+    
+    if ([string isEqualToString:@&quot;A&quot;]){
+        
+        return YES;
+        
+    }
+    
+    NSString * toBeString = [textField.text stringByReplacingCharactersInRange:range withString:string];//取得輸入框內容 用於計算輸入框的總數
+    
+    if (your_textfield_1 == textField){ //應用於想使用的輸入框上
+        
+        if ([toBeString length] &gt; 10) { //超過10個跳出警告
+            
+            your_textfield_1 = [toBeString substringToIndex:10];
+            
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@&quot;無法輸入 已超過上線&quot; delegate:nil cancelButtonTitle:@&quot;Ok&quot; otherButtonTitles:nil, nil];
+            
+            [alert show];
+            return NO;
+        }
+    }
+    return YES;
+    
+}
+
+@end
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/XOV5UtTMI/" class="tag">
+                    Objective-C
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/ios-jian-cha-email-ge-shi/">
+                  <h3 class="post-title">
+                    [OC] 檢查 Email 格式
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

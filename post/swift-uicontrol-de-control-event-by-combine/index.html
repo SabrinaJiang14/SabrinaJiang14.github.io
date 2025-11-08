@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Swift] UIControl 的 Control Event by Combine | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Swift] UIControl 的 Control Event by Combine</h2>
+            <div class="post-date">2020-11-12</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/swift-uicontrol-de-control-event-by-combine.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h1 id="前言">前言</h1>
+<p>這幾天有空就玩一下去年蘋果新推出的兩大功能 - Combine &amp; SwiftUI。</p>
+<p>SwiftUI 對我來說是一個全新的境界，跟之前碰過的程式語言都較為不同，目前還在熟悉中。<br>
+但是 Apple 推出的響應式編程 - Combine，以之前已經碰過 RxSwift 的我來說較為熟悉。<br>
+觀念大致相同，不同的是用法跟語法吧。</p>
+<p>但就在我練習當中發現 Combine 跟 UIKit 的相容性似乎比較差(也可以說完全沒有= =)，可能因為有 SwiftUI 輔助了吧。<br>
+所以就上網查了一下相關資訊，發現蠻多人是使用 UIKit + Combine ，只不過 Publisher 要自己寫就是。</p>
+<hr>
+<h1 id="create-custom-publisher">Create Custom Publisher</h1>
+<p>在 “<a href="https://medium.com/flawless-app-stories/swift-combine-custom-publisher-6d1cc3dc248f">How to create custom Publisher in Combine</a>” 裡面有指出如果要做出一個客製化的 Publisher ，需要三件事情：</p>
+<blockquote>
+<ol>
+<li>Publisher</li>
+<li>Subscription</li>
+<li>Subscriber</li>
+</ol>
+</blockquote>
+<h2 id="發布者publisher">發布者(Publisher)</h2>
+<p>簡單來說，可以先把他看做是報社的角色，他的職責就是負責製作報紙、送報紙。<br>
+而在這邊我們要送的是 UIControl ，因為所有的元件都繼承這個 class 。所以我們就先製作一個 送 UIControl 的 Publisher。<br>
+如果有看到 Combine 的 framework，就可以發現 Publisher 其實是一個 protocol 而非實體</p>
+<pre><code>public protocol Publisher {
+
+    /// The kind of values published by this publisher.
+    associatedtype Output
+
+    /// The kind of errors this publisher might publish.
+    ///
+    /// Use `Never` if this `Publisher` does not publish errors.
+    associatedtype Failure : Error
+
+    /// Attaches the specified subscriber to this publisher.
+    ///
+    /// Implementations of ``Publisher`` must implement this method.
+    ///
+    /// The provided implementation of ``Publisher/subscribe(_:)-4u8kn``calls this method.
+    ///
+    /// - Parameter subscriber: The subscriber to attach to this ``Publisher``, after which it can receive values.
+    func receive&lt;S&gt;(subscriber: S) where S : Subscriber, Self.Failure == S.Failure, Self.Output == S.Input
+}
+</code></pre>
+<p>所以我們就產生一個 Class 來實作 Publisher</p>
+<pre><code>// Publisher
+final class CustomePublisher&lt;C:UIControl&gt; : Publisher {
+    typealias Output = C
+    typealias Failure = Never
+    
+    func receive&lt;S&gt;(subscriber: S) where S : Subscriber, CustomePublisher.Failure == S.Failure, CustomePublisher.Output == S.Input {
+        
+    }
+}
+</code></pre>
+<h2 id="協議subscription">協議(Subscription)</h2>
+<p>也就是明定這份報紙在什麼情況下會送到訂閱用戶手上。</p>
+<pre><code>final class CustomSubscription&lt;S: Subscriber, C: UIControl&gt; : Subscription where S.Input == C {
+    func request(_ demand: Subscribers.Demand) {
+        //TODO:...
+    }
+    
+    func cancel() {
+        //TODO:...
+    }
+}
+</code></pre>
+<h2 id="訂閱者subscriber">訂閱者(Subscriber)</h2>
+<p>也就是訂閱用戶，用戶可以向報社訂閱報紙。</p>
+<pre><code>protocol CombineCompatible { }
+extension UIControl: CombineCompatible { }
+// Subscriber
+extension CombineCompatible where Self:UIControl {
+    func controlEvent(for event:UIControl.Event) -&gt; CustomePublisher&lt;UIControl&gt; {
+        
+    }
+}
+</code></pre>
+<p>到這邊為止，所有 Class 的架構已經做好，接下來就要進行內部實作。<br>
+就先從 訂閱者(Subscriber) 下手，目前在 extension 的 func controlEvent(for:) 還沒有回傳一個CustomePublisher，而我們需要在 UIControl 的 addTarget 去把事件註冊進去。<br>
+所以就在 CustomePublisher 新增建構子</p>
+<pre><code>final class CustomePublisher&lt;C:UIControl&gt; : Publisher {
+    typealias Output = C
+    typealias Failure = Never
+
+    //=== 新增建構子===
+    private let control:C
+    private let event:UIControl.Event
+    init(control:C, event:UIControl.Event) {
+        self.control = control
+        self.event = event
+    }
+    
+    func receive&lt;S&gt;(subscriber: S) where S : Subscriber, CustomePublisher.Failure == S.Failure, CustomePublisher.Output == S.Input {
+        //TODO:...
+    }
+}
+
+// Subscriber
+extension CombineCompatible where Self:UIControl {
+    func controlEvent(for event:UIControl.Event) -&gt; CustomePublisher&lt;UIControl&gt; {
+        //=== 補上init function ===
+        return CustomePublisher(control: self, event: event)
+    }
+}
+</code></pre>
+<h2 id="subscription-協議">Subscription (協議)</h2>
+<p>接下來是最重要的部分 - Subscription，就在上面我們創造了一個名為 CustomSubscription 的協議，這個協議裡面就會寫著<strong>誰</strong>(UIControl)在<strong>什麼時間點</strong>(UIControl.Event)做<strong>什麼事情</strong>(#selector(eventHandler))，實際程式碼如下：</p>
+<pre><code>final class CustomSubscription&lt;S: Subscriber, C: UIControl&gt; : Subscription where S.Input == C {
+    
+    private var subscriber:S?
+    private let control:C
+    
+    init(subscriber:S, control:C, event:UIControl.Event) {
+        self.subscriber = subscriber
+        self.control = control
+        
+        self.control.addTarget(self, action: #selector(eventHandler), for: event)
+    }
+    
+    func request(_ demand: Subscribers.Demand) {
+        //TODO:...
+    }
+    
+    func cancel() {
+        subscriber = nil
+    }
+    
+    @objc private func eventHandler() {
+        _ = subscriber?.receive(control)
+    }
+    
+    deinit {
+        control.removeTarget(self, action: nil, for: .allEvents)
+    }
+}
+
+//CustomePublisher
+func receive&lt;S&gt;(subscriber: S) where S : Subscriber, CustomePublisher.Failure == S.Failure, CustomePublisher.Output == S.Input {
+    //補上程式碼
+    let subscription = CustomSubscription(subscriber: subscriber, control: control, event: event)
+    subscriber.receive(subscription: subscription)
+}
+</code></pre>
+<p>寫到這邊就已經完成一個客製化的Publisher了。實際上的應用可以寫成這樣：</p>
+<pre><code>//UIButton Tap Event
+_ = button.controlEvent(for: .touchUpInside).sink { (control) in
+    print(&quot;touchUpInside&quot;)
+}
+
+//UISwitch Switch Event
+_ = customSwitch.controlEvent(for: .valueChanged).sink(receiveValue: { (control) in
+    print(&quot;valueChanged&quot;)
+})
+</code></pre>
+<p>寫到這邊忽然發現一件事情，就是如果我要拿 UISwitch 裡面的值，在這個block裡面就要將 control 轉成 UISwitch 才能拿到裡面的 isOn 。</p>
+<pre><code>_ = switchTerms.controlEvent(for: .valueChanged).sink(receiveValue: { (control) in
+    if let mSwitch = control as? UISwitch { //這邊每次都要轉換成該元件才能拿到 UI 元件的相關資料
+        print(mSwitch.isOn)
+    }
+})
+</code></pre>
+<p>那有沒有辦法是直接就轉成該元件就好，不需要再自己轉換一次呢？有的，我們把原本 controlEvent 回傳的值從 UIControl 改成 Self 就好了唷。</p>
+<pre><code>func controlEvent(for event:UIControl.Event) -&gt; CustomePublisher&lt;UIControl&gt; {
+    return .init(control: self, event: event)
+}
+    
+func controlEvent(for event:UIControl.Event) -&gt; CustomePublisher&lt;Self&gt; {
+    return .init(control: self, event: event)
+}
+</code></pre>
+<p>再把想要擴充的元件加上一個 Extension</p>
+<pre><code>extension UISwitch {
+    var valueChanged:CustomePublisher&lt;UISwitch&gt; {
+        return ControlEvent(for: .valueChanged)
+    }
+}
+
+_ = customSwitch.valueChanged.sink(receiveValue: { (s) in
+    print(s.isOn)
+})
+
+//也可以跟其他元件做綁定
+customSwitch.valueChanged.map({ $0.isOn })
+            .assign(to: \.isEnabled, on: button)
+            .store(in: &amp;cancellables)
+</code></pre>
+<p>這樣是不是很方便呢？</p>
+<hr>
+<p>這幾天測試下來的心得，Combine 如果使用在 Model 層面個人覺得是綽綽有餘了， 雖然它對 UI 的支援性不夠好，但是有 SwiftUI 做輔助也夠了。如果真的再不行，網路上也是很多大神針對 Combine + UIKit 做很好的擴充。</p>
+<p>今天這篇文章就到這邊，希望能幫上你們的忙唷。</p>
+<p><a href="https://github.com/SabrinaJiang14/CombineWithUIKitExample">GitHub连结</a></p>
+<hr>
+<h1 id="reference">Reference</h1>
+<ul>
+<li><a href="https://medium.com/flawless-app-stories/swift-combine-custom-publisher-6d1cc3dc248f">How to create custom Publisher in Combine</a> - By Dmitry Lupich</li>
+<li><a href="https://appunite.com/blog/combine-framework-uikit">Combine Framework with UIKit</a> - By Fatih Kagan Emre</li>
+<li><a href="https://www.avanderlee.com/swift/custom-combine-publisher/">Creating a custom Combine Publisher to extend UIKit</a> - By ANTOINE VAN DER LEE</li>
+</ul>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/swift-uidynamicanimator-jian-dan-jie-shao/">
+                  <h3 class="post-title">
+                    [Swift] UIDynamicAnimator 介紹
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

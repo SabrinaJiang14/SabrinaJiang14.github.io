@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>文章列表 | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          
+
+          <h2 class="archives-title">文章列表</h2>
+          <div class="archives-container">
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2022</h2>
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/xcode-13-de-infoplist/">
+                      <h2 class="post-title">
+                        XCode 13 的 info.plist
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2021</h2>
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/install-ijkplayer/">
+                      <h2 class="post-title">
+                        安裝 ijkplayer
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2020</h2>
+              
+                
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/uistackview-de-padding/">
+                      <h2 class="post-title">
+                        [Swift] UIStackView 的 padding
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/swift-uicontrol-de-control-event-by-combine/">
+                      <h2 class="post-title">
+                        [Swift] UIControl 的 Control Event by Combine
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/swift-uidynamicanimator-jian-dan-jie-shao/">
+                      <h2 class="post-title">
+                        [Swift] UIDynamicAnimator 介紹
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/swift-tableview-feng-zhuang-da-fa/">
+                      <h2 class="post-title">
+                        [Swift] TableView 封裝大法
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2019</h2>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/chong-gou-lu-yao-yao-wu-qi-zhi-router/">
+                      <h2 class="post-title">
+                        [Swift] 重構路遙遙無期之Router
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/ios-ping-zheng-de-lai-long-qu-mo/">
+                      <h2 class="post-title">
+                        [iOS] 憑證的來龍去脈
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium/">
+                      <h2 class="post-title">
+                        [Test] iOS 自動化測試之好用工具 — Appium
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/gong-shang-marquee-for-app/">
+                      <h2 class="post-title">
+                        [工商] Marquee For App
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2017</h2>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-create-countdown-circle/">
+                      <h2 class="post-title">
+                        [OC] Create countdown circle
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/gong-shang-sjdatepicker/">
+                      <h2 class="post-title">
+                        [工商] SJDatePicker
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/swift-observer-pattern-2-kvo/">
+                      <h2 class="post-title">
+                        [Swift] Observer Pattern 2 - KVO
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/swift-observer-pattern-nsnotificationcenter/">
+                      <h2 class="post-title">
+                        [Swift] Observer Pattern 1 - NSNotificationCenter
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2016</h2>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-ru-he-jian-dan-hua-chu-yi-tiao-xian/">
+                      <h2 class="post-title">
+                        [OC] 如何簡單劃出一條線
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-new-uialertcontroller/">
+                      <h2 class="post-title">
+                        [OC] New UIAlertController
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-ru-he-qie-zi-chuan/">
+                      <h2 class="post-title">
+                        [OC] 如何切字串
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-uisearchcontroller-de-yong-fa/">
+                      <h2 class="post-title">
+                        [OC] UISearchController 的用法
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            
+              <h2 class="year" data-aos="fade-in" data-aos-delay="500">2015</h2>
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-uicoloruiimage-hu-zhuan/">
+                      <h2 class="post-title">
+                        [OC] UIColor，UIImage 互轉
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-shi-yong-ke-zhi-hua-wu-jian-de-shi-jian-shu-xing-zuo-pai-xu/">
+                      <h2 class="post-title">
+                        [OC] 使用客製化物件的時間屬性做排序
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-bi-jiao-liang-shi-jian-chai/">
+                      <h2 class="post-title">
+                        [OC] 比較兩個時間差
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/oc-uitextfield-de-shi-yong-fang-shi/">
+                      <h2 class="post-title">
+                        [OC] UITextField 的使用方式
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/ios-jian-cha-email-ge-shi/">
+                      <h2 class="post-title">
+                        [OC] 檢查 Email 格式
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+                
+                  <article class="post">
+                    <a href="https://sabrinajiang14.github.io/post/nsstring-to-nsdate/">
+                      <h2 class="post-title">
+                        [OC] NSString to NSDate
+                      </h2>
+                    </a>
+                  </article>
+                
+              
+            
+          </div>
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

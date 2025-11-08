@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Swift] TableView 封裝大法 | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Swift] TableView 封裝大法</h2>
+            <div class="post-date">2020-01-21</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/swift-tableview-feng-zhuang-da-fa.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <p>看到封面圖就知道，再過幾天就是農曆新年啦！<br>
+先祝大家新年快樂，鼠年行大運！！</p>
+<hr>
+<h2 id="tableview-delegate-tableview-datasource">TableView Delegate &amp; TableView Datasource</h2>
+<p>TableView 應該是所有 iOS 工程師最常用到的元件之一吧！<br>
+相信對他的 delegate &amp; datasource 應該是不陌生才是。</p>
+<pre><code>func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+    return dataSources.count
+}
+</code></pre>
+<pre><code>func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+    let cell = tableView.dequeueReusableCell(withIdentifier: &quot;CustomCellIdentifier&quot;, for: indexPath) as! CustomCell
+    // Do something ....
+    return cell
+}
+</code></pre>
+<pre><code>func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    // tap cell 
+}
+</code></pre>
+<p>這三個方法應該是最最常用的，但是每次都要在 UIViewController 裡寫上這麼多方法，感覺很辛苦啊！<br>
+更不用說他還有其他哩哩摳摳的方法~~</p>
+<p>再者因為先前很習慣 RxDatasource 的寫法，很想要把那一套簡潔的寫法拿來用，<br>
+所以就衍生出這篇文章啦！！</p>
+<p>由於現在這個新專案，很多UI都是用code寫出來了，所以我就先放上用code寫的程式碼，<br>
+如果之後改成用Storyboard的話再來更新。</p>
+<hr>
+<h2 id="實作開始">實作開始</h2>
+<p>首先先把原本的 TableView 的方法實作出來，確定他是可以動之後再來改寫喔：</p>
+<pre><code>class SJTableView: UIView {  //這個 view 是透過 xib 生成的喔
+    @IBOutlet weak var tableView: UITableView! 
+
+    lazy var xibView:UIView = {
+        return Bundle.main.loadNibNamed(&quot;SJTableView&quot;, owner: self, options: nil)?.first as! UIView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+    
+    private func setupView() {
+        xibView.frame = bounds
+        addSubview(xibView)
+        initTableView()
+    }
+    
+    private func initTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: &quot;CustomCellIdentifier&quot;, for: indexPath) as! CustomCell
+        // Do something ....
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // tap cell 
+    }
+}
+</code></pre>
+<hr>
+<pre><code>private var sj_item_selected:((_ index:IndexPath) -&gt; Void)?
+private var sj_configure_cell:((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell?)?
+</code></pre>
+<p>我加了兩個 Private 的 block，一個是攔截 didSelectRowAt ，一個是生成 cellForRowAt 的時候使用，至於怎麼用就等會說明。</p>
+<pre><code>func registerClassCell(any:[AnyClass]) -&gt; SJTableView {
+    for cell in any {
+        tableView.register(cell.self, forCellReuseIdentifier: String(describing: cell.self))
+    }
+    return self
+}
+
+func registerNibCell(cellIDs:[String]) -&gt; SJTableView {
+    for cellID in cellIDs {
+        tableView.register(UINib(nibName: cellID, bundle: nil), forCellReuseIdentifier: cellID)
+    }
+    return self
+}
+</code></pre>
+<p>再加上兩個註冊 cell 的方法，可以用 Class 或是 Nib 的方式，端看個人需求而定。</p>
+<pre><code>func configuratorItemCell(configureCell:@escaping ((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell? )) -&gt; SJTableView {
+    sj_configure_cell = configureCell
+    return self
+}
+
+func itemDidSelected(completed:@escaping ((_ index:IndexPath) -&gt; Void)) -&gt; SJTableView {
+    sj_item_selected = completed
+    return self
+}
+</code></pre>
+<p>這邊我又加了兩個方法，主要是要讓用這個元件的人可以選擇用我原本寫好的 Cell ，也可以自己另外新增自己的 Cell。<br>
+到這邊算是已經完成九成了唷。最後一個步驟就是在原本 <code>(tableView:cellForRowAt)</code> 以及 <code>(tableView:didSelectRowAt)</code> 加上我們一開始宣告的 block：</p>
+<pre><code>func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+    guard sj_configure_cell == nil else {
+        return (sj_configure_cell?(tableView, indexPath))!
+    }
+
+    let cell = tableView.dequeueReusableCell(withIdentifier: &quot;CustomCellIdentifier&quot;, for: indexPath) as! CustomCell
+    // Do something ....
+    return cell
+}
+
+func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    guard sj_item_selected == nil else {
+        sj_item_selected?(indexPath)
+        return
+    }
+    // tap cell 
+}
+</code></pre>
+<hr>
+<p>寫到這邊是不是很好奇那原本的 UIViewController 的寫法會變成怎樣呢？</p>
+<pre><code>tableView = tableView.configuratorItemCell(configureCell: { (tb, index) -&gt; UITableViewCell? in
+        let cell = tb.dequeueReusableCell(withIdentifier: &quot;cell&quot;, for: index)
+        return cell
+    }).itemDidSelected(completed: { (index) in
+        print(index.row)
+    })
+</code></pre>
+<p>這邊保留了一點彈性，如果你不需要製作新的 TableViewCell，想要用原本提供的 cell 就好。<br>
+改成這樣寫就只會拿到使用者點擊 Cell 的事件：</p>
+<pre><code>tableView = tableView.itemDidSelected(completed: { (index) in
+    print(index.row)
+})
+</code></pre>
+<p>同樣的，如果不需要點擊事件，就不要 call itemDidSelected 這個方法就好囉！</p>
+<hr>
+<h2 id="reloaddata">ReloadData</h2>
+<p>在我寫第一版的時候，還不是很確定要怎麼樣讓 tableView 做 reload，所以我就在 api callback 的時候，把整理好的資料丟進 tableview 的 function：</p>
+<pre><code>api.getDatas(completed: { [unowned self] (result) in 
+    self.tableView.setupData(result)
+}) { [unowned self] (error) in 
+    self.showError(error.localizedDescription)
+}
+</code></pre>
+<p>但是這樣一點都不直覺啊，而且其他 viewController 在用這個套件的時候一定會忘記寫這邊的程式碼。<br>
+所以我後來研究之後覺得改成另一種方式也許會好用一點。<br>
+在原本的 class 外面先定義一個 block type：<code> typealias BindType = ((_ dataSources:[Any]) -&gt; Void)</code>，再定義一個 protocol 讓要用這個套件的人要去實作這個 protocol 裡的 function / proprety，</p>
+<pre><code>protocol SJTableViewAble {
+    var onBind:BindType? { get set }
+}
+</code></pre>
+<p>我們在 SJTableView 這個 Class 裡新增幾個 function，當 onBind 這個 block 發生變化的時候可以回到 SJTableView 做 reloadData。</p>
+<pre><code>func getBind() -&gt; BindType {
+    return sj_bind_data
+}
+
+func setDelegate(_ mDelegate:SJTableViewAble) -&gt; SJTableView {
+    delegate = mDelegate
+    return self
+}
+
+private var sj_bind_data:BindType = { (_ ,_ ) in }
+
+private func initTableView() {
+    tableView.delegate = self
+    tableView.dataSource = self
+    sj_bind_data = { (datas,) in
+        // do refresh tableView
+    }
+}
+</code></pre>
+<p>在原本使用 SJTableView 的 viewController 裡面，就要把我們剛剛新增的 delegate 在這個 viewController 實作。</p>
+<pre><code>class ViewController: UIViewController,SJTableViewAble {
+    var onBind: BindType?
+    override func viewDidLoad() {
+        tableView = tableView
+                .itemDidSelected { (index) in
+                    print(index.row)
+                }.setDelegate(self)
+        onBind = mainTableView.getBind()
+        getData()
+    }
+
+    func getData() {
+        api.getDatas(completed: { [unowned self] (result) in 
+            // self.tableView.setupData(result)
+            self.onBind?(result) //這邊改成由本身的閉包去推送資料回到 tableView 裡面，就不直接去 call tableView 的 reload
+        }) { (error) in 
+            // show error
+        }
+    }
+}
+</code></pre>
+<hr>
+<p>以上就是把一個 TableView 做簡單的封裝，但同時也保留一些彈性讓其他的使用者改成他想要的功能。<br>
+是不是很簡單。<br>
+完整的程式碼請見下方區域，希望這篇文章有幫助到你喲！！</p>
+<hr>
+<p>ViewController.swift</p>
+<pre><code>class ViewController: UIViewController,SJTableViewAble {
+    var onBind: BindType?
+    private lazy var tableView:SJTableView = {
+        return SJTableView(frame: self.view.frame)
+    }()
+
+    override func viewDidLoad() {
+        tableView = tableView
+                .itemDidSelected { (index) in
+                    print(index.row)
+                }.setDelegate(self)
+        onBind = mainTableView.getBind()
+        getData()
+    }
+
+    func getData() {
+        api.getDatas(completed: { [unowned self] (result) in 
+            self.onBind?(result) 
+        }) { (error) in 
+            // show error
+        }
+    }
+}
+</code></pre>
+<p>SJTableView.swift</p>
+<pre><code>typealias BindType = ((_ dataSources:[Any]) -&gt; Void)
+
+protocol SJTableViewAble {
+    var onBind:BindType? { get set }
+}
+
+class SJTableView: UIView {
+
+    @IBOutlet weak var tableView: UITableView!
+    
+    func registerClassCell(any:[AnyClass]) -&gt; SJTableView {
+        for cell in any {
+            tableView.register(cell.self, forCellReuseIdentifier: String(describing: cell.self))
+        }
+        return self
+    }
+    
+    func registerNibCell(cellIDs:[String]) -&gt; SJTableView {
+        for cellID in cellIDs {
+            tableView.register(UINib(nibName: cellID, bundle: nil), forCellReuseIdentifier: cellID)
+        }
+        return self
+    }
+    
+    func configuratorItemCell(configureCell:@escaping ((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell? )) -&gt; SJTableView {
+        sj_configure_cell = configureCell
+        return self
+    }
+    
+    func itemDidSelected(completed:@escaping ((_ index:IndexPath) -&gt; Void)) -&gt; SJTableView {
+        sj_item_selected = completed
+        return self
+    }
+    
+    func getBind() -&gt; BindType {
+        return sj_bind_data
+    }
+
+    func setDelegate(_ mDelegate:SJTableViewAble) -&gt; SJTableView {
+        delegate = mDelegate
+        return self
+    }
+    
+    //MARK: - private objective and proprety
+    private var datas:[Any] = []
+    private var sj_item_selected:((_ index:IndexPath) -&gt; Void)?
+    private var sj_configure_cell:((_ tb:UITableView, _ index:IndexPath) -&gt; UITableViewCell?)?
+    private var sj_bind_data:BindType = { (_ ,_ ) in }
+    private var delegate:SJTableViewAble?
+    
+    lazy var xibView:UIView = {
+        return Bundle.main.loadNibNamed(&quot;SJTableView&quot;, owner: self, options: nil)?.first as! UIView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
+    
+    private func setupView() {
+        xibView.frame = bounds
+        addSubview(xibView)
+        initTableView()
+    }
+    
+    private func initTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        sj_bind_data = { [unowned self] (dataSource) in
+            self.datas = dataSource
+            self.tableView.reloadData()
+        }
+    }
+}
+
+extension SJTableView: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -&gt; Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -&gt; Int {
+        return self.datas.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -&gt; UITableViewCell {
+        guard sj_configure_cell == nil else {
+            return (sj_configure_cell?(tableView, indexPath))!
+        }
+        let cell = tableView.dequeueReusableCell(withIdentifier: &quot;CustomCellIdentifier&quot;, for: indexPath) as! CustomCell
+        return cell
+    }
+}
+</code></pre>
+<p><a href="https://github.com/SabrinaJiang14/SJExpandableTableView">補上 GitHub 連結</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/XhdzGahLw/" class="tag">
+                    Refactoring
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/ge2CilX0S/" class="tag">
+                    Swift
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/chong-gou-lu-yao-yao-wu-qi-zhi-router/">
+                  <h3 class="post-title">
+                    [Swift] 重構路遙遙無期之Router
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Swift] UIDynamicAnimator 介紹 | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Swift] UIDynamicAnimator 介紹</h2>
+            <div class="post-date">2020-08-31</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/swift-uidynamicanimator-jian-dan-jie-shao.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <p>最近發現一個 iOS 7 就出現的好玩意 - UIDynamicAnimator，做出一個搖骰子的動畫就變成非常簡單</p>
+<hr>
+<p>首先：先宣告一個 UIDynamicAnimator ，並告訴它要作動的畫面在哪裏</p>
+<pre><code>let dynamicAnimator = UIDynamicAnimator(referenceView: self.view)
+</code></pre>
+<p>接下來就是告訴它這個動畫裡面要包含哪些元素跟哪些物件要做這些動畫。</p>
+<h3 id="重力">重力</h3>
+<pre><code>//什麼是 UIDynamicItem？簡單來說就是所有繼承 UIView 的 UI 物件通通都是 UIDynamicItem
+let items:[UIDynamicItem] = ...
+let gravite = UIGravityBehavior(items: items)
+gravite.gravityDirection:CGVector = CGVector(dx: 0.0, dy: 1.0)  //重力方向
+//(0.0, 1.0)    ↓
+//(1.0, 0.0)    →
+//(-1.0, 0.0)   ←
+//(0.0, -1.0)   ↑
+//(-1.0, -1.0)  ↖︎
+//(1.0, -1.0)   ↗︎
+//(-1.0, 1.0)   ↙︎
+//(1.0, 1.0)    ↘︎
+gravite.angle = aDegree * 90 //重力方向，以弧度表示 (let aDegree = CGFloat.pi / 180) 
+gravite.magnitude = 10 //重力大小，數值越大，掉落速度越快
+gravite.setAngle(aDegree * 90, magnitude: 10) //跟上面的是一樣的
+dynamicAnimator.addBehavior(gravite) //把這個行為加入 UIDynamicAnimator 裡面
+</code></pre>
+<h3 id="碰撞">碰撞</h3>
+<pre><code>//所有的物體都會有碰撞的物理現象，差別在於物體碰撞後的結果是什麼。
+let collisionBehavior = UICollisionBehavior(items: items) //需要發生碰撞的元件是哪裡
+collisionBehavior.translatesReferenceBoundsIntoBoundary = true //用參考視圖邊界作為碰撞邊界，也就是剛剛的 referenceView 當作碰撞的邊界
+collisionBehavior.collisionMode = .everything //有三種模式：items &gt; 物體間的碰撞，boundaries &gt; 邊界的碰撞，everything &gt; 所有的碰撞
+collisionBehavior.collisionDelegate = self //碰撞有自己的協定可以實作
+dynamicAnimator.addBehavior(collisionBehavior) //把這個行為加入 UIDynamicAnimator 裡面
+</code></pre>
+<h3 id="物體屬性行為">物體屬性行為</h3>
+<pre><code>let litterBehavior = UIDynamicItemBehavior(items: items)
+litterBehavior.elasticity = 0.8 //物體的彈性係數，通常介於 0 - 1 之間
+litterBehavior.density = 1 //物體密度，計算物體總質量，質量越大的物體加減速越難
+litterBehavior.friction = 0.01 //摩擦係數，決定接觸面與光滑面的摩擦力有多大
+litterBehavior.resistance = 0.05 //阻力
+litterBehavior.angularResistance = 0.2 //旋轉阻力，旋轉時的阻力有多大
+litterBehavior.allowsRotation = true // 物體是否可以選轉
+litterBehavior.isAnchored = true //定錨效果：該物件參與碰撞，但不受碰撞影響
+dynamicAnimator.addBehavior(litterBehavior)
+</code></pre>
+<h3 id="加速度">加速度</h3>
+<pre><code>let push = UIPushBehavior(items: items, mode: .instantaneous) //mode 有分兩種：持續性(continuous)或是爆發性(instantaneous)
+push.active = true
+push.setAngle(pointToAngle(p: CGPoint(x: 50, y: -300)), magnitude: 10)//推的角度跟速度
+dynamicAnimator.addBehavior(push)
+</code></pre>
+<p>透過上述一系列的參數設定之後就可以做出骰骰子的動畫囉。</p>
+<img src="../../post-images/1599020419560.gif" width="400" height="800"/>
+<p><a href="https://github.com/SabrinaJiang14/TestCube">GitHub連結</a></p>
+
+            </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/swift-tableview-feng-zhuang-da-fa/">
+                  <h3 class="post-title">
+                    [Swift] TableView 封裝大法
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://sabrinajiang14.github.io/</id>
+    <title>Sab.J 的碼農世界</title>
+    <updated>2025-11-08T09:55:53.886Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://sabrinajiang14.github.io/"/>
+    <link rel="self" href="https://sabrinajiang14.github.io/atom.xml"/>
+    <subtitle>喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…</subtitle>
+    <logo>https://sabrinajiang14.github.io/images/avatar.png</logo>
+    <icon>https://sabrinajiang14.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2025, Sab.J 的碼農世界</rights>
+    <entry>
+        <title type="html"><![CDATA[XCode 13 的 info.plist]]></title>
+        <id>https://sabrinajiang14.github.io/post/xcode-13-de-infoplist/</id>
+        <link href="https://sabrinajiang14.github.io/post/xcode-13-de-infoplist/">
+        </link>
+        <updated>2022-04-28T03:03:14.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[安裝 ijkplayer]]></title>
+        <id>https://sabrinajiang14.github.io/post/install-ijkplayer/</id>
+        <link href="https://sabrinajiang14.github.io/post/install-ijkplayer/">
+        </link>
+        <updated>2021-01-12T07:09:54.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Swift] UIStackView 的 padding]]></title>
+        <id>https://sabrinajiang14.github.io/post/uistackview-de-padding/</id>
+        <link href="https://sabrinajiang14.github.io/post/uistackview-de-padding/">
+        </link>
+        <updated>2020-12-09T07:00:11.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Swift] UIControl 的 Control Event by Combine]]></title>
+        <id>https://sabrinajiang14.github.io/post/swift-uicontrol-de-control-event-by-combine/</id>
+        <link href="https://sabrinajiang14.github.io/post/swift-uicontrol-de-control-event-by-combine/">
+        </link>
+        <updated>2020-11-12T05:41:52.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Swift] UIDynamicAnimator 介紹]]></title>
+        <id>https://sabrinajiang14.github.io/post/swift-uidynamicanimator-jian-dan-jie-shao/</id>
+        <link href="https://sabrinajiang14.github.io/post/swift-uidynamicanimator-jian-dan-jie-shao/">
+        </link>
+        <updated>2020-08-31T06:25:21.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Swift] TableView 封裝大法]]></title>
+        <id>https://sabrinajiang14.github.io/post/swift-tableview-feng-zhuang-da-fa/</id>
+        <link href="https://sabrinajiang14.github.io/post/swift-tableview-feng-zhuang-da-fa/">
+        </link>
+        <updated>2020-01-21T05:31:25.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Swift] 重構路遙遙無期之Router]]></title>
+        <id>https://sabrinajiang14.github.io/post/chong-gou-lu-yao-yao-wu-qi-zhi-router/</id>
+        <link href="https://sabrinajiang14.github.io/post/chong-gou-lu-yao-yao-wu-qi-zhi-router/">
+        </link>
+        <updated>2019-12-18T14:46:01.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[iOS] 憑證的來龍去脈]]></title>
+        <id>https://sabrinajiang14.github.io/post/ios-ping-zheng-de-lai-long-qu-mo/</id>
+        <link href="https://sabrinajiang14.github.io/post/ios-ping-zheng-de-lai-long-qu-mo/">
+        </link>
+        <updated>2019-11-26T09:46:22.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[Test] iOS 自動化測試之好用工具 — Appium]]></title>
+        <id>https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium/</id>
+        <link href="https://sabrinajiang14.github.io/post/ios-zi-dong-hua-ce-shi-zhi-hao-yong-gong-ju-appium/">
+        </link>
+        <updated>2019-11-25T06:23:01.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[工商] Marquee For App]]></title>
+        <id>https://sabrinajiang14.github.io/post/gong-shang-marquee-for-app/</id>
+        <link href="https://sabrinajiang14.github.io/post/gong-shang-marquee-for-app/">
+        </link>
+        <updated>2019-09-24T09:21:42.000Z</updated>
+    </entry>
+</feed>

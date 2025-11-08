@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[OC] Create countdown circle | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[OC] Create countdown circle</h2>
+            <div class="post-date">2017-05-11</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/oc-create-countdown-circle.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <pre><code>//
+//  CircleView.h
+//
+//  Created by Sabrina on 2017/5/12.
+//  Copyright © 2017年 Sabrina All rights reserved.
+//
+
+#import &lt;UIKit/UIKit.h&gt;
+
+@interface CircleView : UIView
+
+@property (nonatomic) CGFloat precent;
+
+- (id)initWithFrame:(CGRect)frame arcWidth:(double)width;
+
+@end
+</code></pre>
+<pre><code>//
+//  CircleView.m
+//
+//  Created by Sabrina on 2017/5/12.
+//  Copyright © 2017年 Sabrina All rights reserved.
+//
+
+#import &quot;CircleView.h&quot;
+
+@implementation CircleView{
+	CGFloat startAngle;
+	CGFloat endAngle;
+	CGFloat circlewWidth, lineWith;
+}
+
+
+- (id)initWithFrame:(CGRect)frame arcWidth:(double)width
+{
+	
+	self = [super initWithFrame:frame];
+	
+	if (self) {
+		// Initialization code
+
+		self.backgroundColor = [UIColor clearColor];
+		
+		// Determine our start and stop angles for the arc (in radians)
+		startAngle = M_PI * 1.5;
+		endAngle = startAngle + (M_PI * 2);
+		circlewWidth = self.frame.size.width - 20;
+		lineWith = self.frame.size.width / 2;
+		
+	}
+	
+	return self;
+	
+}
+
+- (void)drawRect:(CGRect)rect {
+	
+	UIBezierPath *circle = [UIBezierPath bezierPathWithOvalInRect:CGRectMake(10, 10, circlewWidth, circlewWidth)];
+	[[UIColor blueColor] setStroke];
+	circle.lineWidth = 0;
+	[circle stroke];
+	[[UIColor whiteColor] setFill];
+	[circle fill];
+	
+	UIBezierPath *arcLine = [UIBezierPath bezierPathWithArcCenter:CGPointMake(lineWith, lineWith) radius:circlewWidth / 2 startAngle:startAngle endAngle:(endAngle - startAngle) * (self.precent / 100.0) + startAngle clockwise:YES];
+	arcLine.lineWidth = 10;
+	[[UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0] setStroke];
+	[arcLine stroke];
+	
+	NSString* textContent = @&quot;&quot;;
+	
+	if (self.precent &gt; 100.0){
+		textContent = [NSString stringWithFormat:@&quot;%@%%&quot;, @&quot;100&quot;];
+	}else{
+		textContent = [NSString stringWithFormat:@&quot;%.1f%%&quot;, self.precent];
+	}
+	
+	// Text Drawing
+	CGRect textRect = CGRectMake((rect.size.width / 2.0)/2.0, (rect.size.height / 2.0) - 45/2.0, circlewWidth, 45);
+	[[UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0] setFill];
+	NSDictionary *attributes = @{ NSFontAttributeName: [UIFont fontWithName: @&quot;Helvetica-Bold&quot; size: 30.0],
+								  NSForegroundColorAttributeName : [UIColor colorWithRed:145/255.0 green:197/255.0 blue:226/255.0 alpha:1.0]};
+	[textContent drawInRect:textRect withAttributes:attributes];
+}
+
+@end
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/XOV5UtTMI/" class="tag">
+                    Objective-C
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://sabrinajiang14.github.io/post/gong-shang-sjdatepicker/">
+                  <h3 class="post-title">
+                    [工商] SJDatePicker
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>

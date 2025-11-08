@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>[Swift] RxSwift | Sab.J 的碼農世界</title>
+<meta name="description" content="喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://sabrinajiang14.github.io//favicon.ico?v=1762595750965">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://sabrinajiang14.github.io//styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153527396-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-153527396-1');
+</script>
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://sabrinajiang14.github.io/">
+        <img src="https://sabrinajiang14.github.io//images/avatar.png?v=1762595750965" class="site-logo">
+        <h1 class="site-title">Sab.J 的碼農世界</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首頁
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            列表
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            標籤
+          </a>
+        
+      
+        
+          <a href="https://sabrinajiang14.github.io/post/about_me/" class="site-nav">
+            關於我
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      喜歡看看新技術，了解新架構，正在往Clean Code的方向前進…
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://sabrinajiang14.github.io//atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">[Swift] RxSwift</h2>
+            <div class="post-date">2019-11-29</div>
+            
+              <div class="feature-container" style="background-image: url('https://sabrinajiang14.github.io//post-images/swift-rxswift.jpg')">
+              </div>
+            
+            <div class="post-content">
+              <h2 id="前言">前言</h2>
+<p>默默地我才發現，原來Rx我也用了將近兩年半了。從一開始什麼都不會，到現在不用它不行。<br>
+只能說Rx真的是我的好朋友！！</p>
+<p>其實Rx的概念非常簡單，就是觀察者模式的應用而已。<br>
+從哪裡發送、在哪裡訂閱、哪裡取消訂閱，如此而已。</p>
+<p>但是發現還是很多工程師不願意踏入這塊奇異瑰寶，就覺得很可惜。<br>
+目前網路上很多關於 RxSwift 的文章，大部分都是介紹其中的 Operator 單一用法，比較沒有辦法體會到真正套用到實戰時的狀況。</p>
+<p>所以我就想說，不如就自己來寫一篇吧。透過製作一個 App 的方式，將 RxSwift 套入，這樣應該更能讓大家了解到實際的應用狀況吧！(自己覺得...🤣🤣🤣)。廢話不多說，我們就一起開始吧！！</p>
+<hr>
+<h2 id="正文開始">正文開始</h2>
+<blockquote>
+<p>準備環境：macOS Mojave(10.14.6)、Xcode 10.3<br>
+前期準備：從 CocoaPods 安裝 RxSwift &amp; RxCocoa</p>
+</blockquote>
+<p>環境都安裝好後，就要正式進入開發期了。</p>
+<hr>
+<h2 id="結尾">結尾</h2>
+<hr>
+<p>https://opendata.cwb.gov.tw/dist/opendata-swagger.html#</p>
+<h2 id="參考文件">參考文件</h2>
+<ul>
+<li><a href="https://github.com/ReactiveX/RxSwift">RxSwift</a> (喜歡原文的朋友，一定不能錯過官方文件)</li>
+<li><a href="https://beeth0ven.github.io/RxSwift-Chinese-Documentation/">RxSwift 中文文档</a> (入門推薦 👍👍👍)</li>
+</ul>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://sabrinajiang14.github.io/tag/ge2CilX0S/" class="tag">
+                    Swift
+                  </a>
+                
+                  <a href="https://sabrinajiang14.github.io/tag/Lhu5gv6WW/" class="tag">
+                    iOS
+                  </a>
+                
+              </div>
+            
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+
+<script type="application/javascript">
+
+AOS.init();
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
